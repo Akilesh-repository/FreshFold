@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - FreshFold</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontWeight: {
+                        semibold: '500',
+                        bold: '600',
+                        extrabold: '800',
+                        black: '900'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* === RESET & CORE === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        /* === THEME VARIABLES (Laundry Blue theme) === */
+        :root {
+            --bg-color: #FAFAFA;
+            --bg-secondary: #F0F9FF;
+            --bg-card: #FFFFFF;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --accent-color: #0EA5E9;
+            --accent-dark: #0284C7;
+            --border-color: #E2E8F0;
+            --nav-bg: #FFFFFF;
+            --drawer-bg: rgba(255, 255, 255, 0.98);
+            --menu-hover-bg: rgba(14, 165, 233, 0.05);
+        }
+
+        /* DARK MODE */
+        body.dark-mode {
+            --bg-color: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-card: #1E293B;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --accent-color: #38BDF8;
+            --accent-dark: #0EA5E9;
+            --border-color: #334155;
+            --nav-bg: #0F172A;
+            --drawer-bg: rgba(15, 23, 42, 0.98);
+            --menu-hover-bg: rgba(56, 189, 248, 0.1);
+        }
+
+        /* RTL SUPPORT */
+        [dir="rtl"] { text-align: right; }
+        [dir="rtl"] .ml-auto { margin-right: auto; margin-left: 0; }
+        [dir="rtl"] .mr-auto { margin-left: auto; margin-right: 0; }
+
+        @keyframes subtleZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        .animate-zoom { animation: subtleZoom 20s infinite alternate ease-in-out; }
+
+        /* === NAVBAR DESIGN === */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: var(--nav-bg); border-bottom: 3px solid var(--accent-color);
+            padding: 0 32px; height: 85px; display: flex; align-items: center;
+            transition: all 0.4s ease;
+        }
+        .navbar.scrolled {
+            height: 70px; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--border-color);
+        }
+        body.dark-mode .navbar.scrolled { box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6); }
+
+        .nav-link {
+            position: relative; padding: 7px 16px; margin: 0 2px;
+            color: var(--text-main); text-decoration: none; font-size: 12px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center;
+            justify-content: center; gap: 6px; cursor: pointer; border-radius: 6px;
+        }
+        .nav-link::before { content: '•'; position: absolute; left: 10px; opacity: 0; transform: translateX(5px); color: var(--accent-color); transition: all 0.3s; font-weight: 900; }
+        .nav-link::after { content: '•'; position: absolute; right: 10px; opacity: 0; transform: translateX(-5px); color: var(--accent-color); transition: all 0.3s; font-weight: 900; }
+        .nav-link:hover::before, .nav-link.active::before, .nav-link:hover::after, .nav-link.active::after { opacity: 1; transform: translateX(0); }
+        .nav-link:hover, .nav-link.active { color: var(--accent-color); background: var(--menu-hover-bg); }
+
+        .dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+        .dropdown-menu {
+            position: absolute; top: 65px; left: 0; transform: translateY(15px);
+            opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+        }
+        .navbar.scrolled .dropdown-menu { top: 55px; }
+        .dropdown-inner {
+            background: var(--bg-card); border: 2px solid var(--border-color);
+            border-radius: 12px; min-width: 240px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            padding: 12px; display: flex; flex-direction: column; gap: 4px;
+        }
+        body.dark-mode .dropdown-inner { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-item {
+            display: block; padding: 12px 16px; border-radius: 6px; color: var(--text-main);
+            text-decoration: none; font-size: 12px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; transition: all 0.2s; text-align: left; white-space: nowrap;
+        }
+        .dropdown-item:hover { background: var(--menu-hover-bg); color: var(--accent-color); transform: translateX(4px); }
+        [dir="rtl"] .dropdown-item:hover { transform: translateX(-4px); }
+
+        /* PILL TOGGLE */
+        .theme-toggle-pill {
+            width: 52px; height: 28px; background: var(--bg-secondary); border-radius: 30px;
+            position: relative; cursor: pointer; display: flex; align-items: center;
+            justify-content: space-between; padding: 0 6px; border: 1px solid var(--border-color);
+        }
+        body.dark-mode .theme-toggle-pill { border-color: var(--border-color); }
+        .theme-toggle-pill i { font-size: 10px; z-index: 1; }
+        .theme-toggle-pill .fa-sun { color: #f59e0b; }
+        .theme-toggle-pill .fa-moon { color: #999; }
+        .theme-toggle-pill .thumb {
+            position: absolute; top: 2px; left: 2px; width: 22px; height: 22px; background: white;
+            border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); z-index: 2; border: 1px solid var(--border-color);
+        }
+        body.dark-mode .theme-toggle-pill .thumb { transform: translateX(24px); background: #333; border-color: var(--border-color); }
+
+        /* RTL BUTTON STYLE */
+        .rtl-btn-style {
+            width: 44px; height: 28px; background: var(--bg-secondary); border-radius: 30px;
+            border: 1px solid var(--border-color); display: flex; align-items: center;
+            justify-content: center; font-size: 10px; font-weight: 800; cursor: pointer;
+            color: var(--text-main); transition: all 0.3s ease;
+        }
+        body.dark-mode .rtl-btn-style { border-color: var(--border-color); }
+        .rtl-btn-style:hover { background: var(--accent-color); color: #fff; border-color: var(--accent-color); }
+
+        /* === BUTTON DESIGN === */
+        .btn {
+            padding: 12px 28px; font-weight: 600; font-size: 12px; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.3s ease; display: inline-flex;
+            align-items: center; justify-content: center; cursor: pointer; position: relative;
+            border: 1px solid transparent; border-radius: 8px;
+        }
+        .btn-solid { background: var(--accent-color); color: #FFFFFF !important; }
+        .btn-solid:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 15px -3px rgba(14, 165, 233, 0.3); }
+        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
+        .btn-outline:hover { border-color: var(--accent-color); color: var(--accent-color) !important; transform: translateY(-2px); }
+
+        /* MOBILE OVERLAY & HAMBURGER */
+        .drawer-overlay {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); z-index: 999;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; backdrop-filter: blur(4px);
+        }
+        .drawer-overlay.active { opacity: 1; visibility: visible; }
+        .fullscreen-menu {
+            position: fixed; top: 0; right: 0; width: 100%; max-width: 400px; height: 100dvh;
+            background: var(--drawer-bg); z-index: 1001; display: flex; flex-direction: column;
+            opacity: 0; visibility: hidden; transform: translateX(100%); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 1px solid var(--border-color);
+        }
+        [dir="rtl"] .fullscreen-menu { right: auto; left: 0; transform: translateX(-100%); border-left: none; border-right: 1px solid var(--border-color); }
+        .fullscreen-menu.active { opacity: 1; visibility: visible; transform: translateX(0); }
+        .mobile-link {
+            display: block; width: 100%; padding: 16px 32px; font-size: 1.1rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); text-decoration: none;
+            transition: all 0.3s; border-bottom: 1px solid var(--border-color);
+        }
+        .mobile-link:hover { color: var(--accent-color); padding-left: 40px; background: var(--menu-hover-bg); }
+        [dir="rtl"] .mobile-link:hover { padding-left: 32px; padding-right: 40px; }
+
+        /* FOOTER */
+        footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding-top: 80px; }
+        body.dark-mode footer { border-color: var(--border-color); }
+        footer h4 { color: var(--text-main); font-weight: 600; font-size: 1.1rem; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        footer a, footer li, footer span { color: var(--text-muted); text-decoration: none; transition: all 0.3s; font-size: 0.95rem; font-weight: 400; }
+        footer a:hover { color: var(--accent-color); }
+        .social-link-circle {
+            width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center; transition: all 0.3s;
+            color: var(--text-main); background: transparent;
+        }
+        .social-link-circle:hover { background: var(--accent-color); border-color: var(--accent-color); color: #FFFFFF; transform: translateY(-3px); }
+        .footer-bottom { border-top: 1px solid var(--border-color); padding: 32px 0; margin-top: 60px; }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar" id="main-nav">
+        <div class="w-full flex items-center justify-between max-w-[1440px] mx-auto">
+            <div class="flex items-center flex-shrink-0">
+                <a href="index.html" class="inline-flex items-center gap-3 text-2xl font-black tracking-widest uppercase" style="color: var(--text-main) !important; text-decoration: none;">
+                    <i class="fas fa-tshirt" style="color: var(--accent-color); font-size: 1.4rem;"></i>
+                    FreshFold
+                </a>
+            </div>
+
+            <div class="hidden xl:flex justify-center items-center flex-1">
+                <div class="dropdown">
+                    <div class="nav-link">Home <i class="fas fa-chevron-down text-[9px] ml-1 opacity-50"></i></div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-inner">
+                            <a href="index.html" class="dropdown-item">Home Page 1</a>
+                            <a href="home-2.html" class="dropdown-item">Home Page 2</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services.html" class="nav-link active">Services</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <div class="dropdown">
+                    <div class="nav-link">Dashboard <i class="fas fa-chevron-down text-[9px] ml-1 opacity-50"></i></div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-inner">
+                            <a href="user.html" class="dropdown-item">User Dashboard</a>
+                            <a href="admin.html" class="dropdown-item">Admin Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hidden xl:flex items-center gap-3">
+                <div id="theme-toggle-desktop" class="theme-toggle-pill" title="Toggle Dark Mode">
+                    <i class="fas fa-sun"></i><i class="fas fa-moon"></i>
+                    <div class="thumb"></div>
+                </div>
+                <button id="rtl-btn" class="rtl-btn-style" title="Toggle LTR/RTL">LTR</button>
+                <div class="w-px h-5 bg-[var(--border-color)] mx-1"></div>
+                <a href="login.html" class="btn btn-outline !border-[var(--accent-color)] !text-[var(--accent-color)] hover:!bg-[var(--accent-color)] hover:!text-white !py-1.5 !px-5 !text-[11px]">Login</a>
+                <a href="register.html" class="btn btn-solid !py-1.5 !px-5 !text-[11px]">Register</a>
+            </div>
+
+            <div class="xl:hidden flex items-center justify-end gap-4">
+                <button id="mobile-btn" class="text-2xl text-[var(--text-main)] transition-colors hover:text-[var(--accent-color)]">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="fullscreen-menu" id="fullscreen-menu">
+        <div class="w-full px-8 py-6 flex justify-between items-center shrink-0 border-b border-[var(--border-color)]">
+            <a href="index.html" class="text-xl font-black tracking-widest uppercase block" style="color: var(--text-main) !important; text-decoration: none;">
+                FreshFold
+            </a>
+            <button id="close-menu" class="w-10 h-10 rounded-full flex items-center justify-center transition-all text-xl text-[var(--text-main)] hover:bg-[var(--bg-secondary)] hover:text-[var(--accent-color)]">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="flex flex-col w-full overflow-y-auto flex-1 py-4">
+            <a href="index.html" class="mobile-link">Home Page 1</a>
+            <a href="home-2.html" class="mobile-link">Home Page 2</a>
+            <a href="about.html" class="mobile-link">About</a>
+            <a href="services.html" class="mobile-link" style="color: var(--accent-color);">Services</a>
+            <a href="pricing.html" class="mobile-link">Pricing</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="faq.html" class="mobile-link">FAQ</a>
+            <a href="contact.html" class="mobile-link">Contact</a>
+            <div class="px-8 mt-6 mb-2">
+                <span class="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">Portals</span>
+            </div>
+            <a href="user.html" class="mobile-link !text-sm text-[var(--text-muted)]">User Dashboard</a>
+            <a href="admin.html" class="mobile-link !text-sm text-[var(--text-muted)]">Admin Dashboard</a>
+        </div>
+        <div class="w-full px-8 py-8 border-t border-[var(--border-color)] flex flex-col gap-6 shrink-0 bg-[var(--bg-secondary)]">
+            <div class="flex justify-between items-center w-full">
+                <div class="flex items-center gap-3">
+                    <span class="text-[var(--text-muted)] font-medium text-[10px] uppercase tracking-widest">Theme</span>
+                    <div id="theme-toggle-mobile" class="theme-toggle-pill"><i class="fas fa-sun"></i><i class="fas fa-moon"></i><div class="thumb"></div></div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-[var(--text-muted)] font-medium text-[10px] uppercase tracking-widest">Dir</span>
+                    <button id="rtl-toggle-mobile" class="rtl-btn-style">LTR</button>
+                </div>
+            </div>
+            <div class="flex gap-4 w-full">
+                <a href="login.html" class="btn btn-outline flex-1 !py-3">Login</a>
+                <a href="register.html" class="btn btn-solid flex-1 !py-3">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="relative w-full h-[100dvh] pt-20 flex items-center justify-center overflow-hidden border-b border-[var(--border-color)]">
+        <div class="absolute inset-0 z-0 bg-black">
+            <img src="images/pexels-ekaterinabelinskaya-4700400.jpg" alt="Premium Garment Services" class="w-full h-full object-cover animate-zoom opacity-50" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+        </div>
+
+        <div class="max-w-[1200px] mx-auto px-6 w-full flex flex-col items-center justify-center text-center relative z-10 mt-16">
+            <span class="text-[var(--accent-color)] text-sm font-extrabold uppercase tracking-[0.2em] mb-6 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
+                <i class="fas fa-list mr-2"></i> Our Services
+            </span>
+
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-tight mb-6 text-white tracking-tight uppercase">
+                Premium Care. <br class="hidden sm:block">
+                <span class="italic font-light" style="color: var(--accent-color);">Tailored For You.</span>
+            </h1>
+
+            <p class="text-gray-200 text-lg md:text-xl leading-relaxed max-w-2xl font-medium mb-10 drop-shadow-md">
+                From delicate dry cleaning to everyday wash and fold, discover our comprehensive range of garment care solutions designed to fit your busy lifestyle perfectly.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
+                <a href="#services-list" class="btn btn-solid !py-4 !px-10 text-sm">Explore Services</a>
+                <a href="pricing.html" class="btn btn-outline !border-white !text-white hover:!bg-white hover:!text-black !py-4 !px-10 text-sm">View Pricing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- === MAIN CONTENT: UNIQUE SERVICE CARDS === -->
+    <main class="w-full bg-[var(--bg-color)] relative" id="services-list">
+        
+        <section class="py-24 md:py-32">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+                <div class="text-center max-w-3xl mx-auto mb-20">
+                    <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-[0.2em] mb-4 block">What We Offer</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-[var(--text-main)] uppercase tracking-tight leading-tight">
+                        Fabric Care Solutions
+                    </h2>
+                    <div class="w-16 h-1.5 bg-[var(--accent-color)] mx-auto mt-6 rounded-full"></div>
+                </div>
+
+                <!-- Grid enforces equal height for all columns -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    
+                    <!-- Service Card 1 -->
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[2.5rem] p-4 flex flex-col h-full group hover:border-[var(--accent-color)] transition-colors duration-500 hover:shadow-2xl">
+                        <!-- Image Container -->
+                        <div class="w-full h-56 rounded-[2rem] overflow-hidden relative mb-6">
+                            <img src="images/pexels-rdne-5591639.jpg" alt="Wash & Fold" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl border border-white/30 text-white font-black uppercase tracking-wider text-sm">
+                                Wash & Fold
+                            </div>
+                        </div>
+                        <!-- Content Container (flex-grow pushes button down) -->
+                        <div class="px-4 pb-4 flex flex-col flex-grow">
+                            <p class="text-[var(--text-muted)] leading-relaxed mb-6 font-medium text-[15px]">
+                                Your everyday laundry sorted, washed in ideal temperatures, and perfectly folded. Ready to go straight into your drawers, completely hassle-free.
+                            </p>
+                            <!-- Button (mt-auto ensures bottom alignment regardless of text length) -->
+                            <div class="mt-auto w-full">
+                                <a href="services-details.html" class="btn btn-outline w-full !py-3.5 !rounded-2xl group-hover:bg-[var(--accent-color)] group-hover:text-white group-hover:border-[var(--accent-color)] text-[13px] font-bold">
+                                    View Details <i class="fas fa-arrow-right ml-2 text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 2 -->
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[2.5rem] p-4 flex flex-col h-full group hover:border-[var(--accent-color)] transition-colors duration-500 hover:shadow-2xl">
+                        <div class="w-full h-56 rounded-[2rem] overflow-hidden relative mb-6">
+                            <img src="images/pexels-ekaterinabelinskaya-4700400.jpg" alt="Dry Cleaning" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl border border-white/30 text-white font-black uppercase tracking-wider text-sm">
+                                Dry Cleaning
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4 flex flex-col flex-grow">
+                            <p class="text-[var(--text-muted)] leading-relaxed mb-6 font-medium text-[15px]">
+                                Premium care for delicate fabrics. We use eco-friendly, non-toxic solvents to extend the lifespan of your suits, silk dresses, and specialty garments.
+                            </p>
+                            <div class="mt-auto w-full">
+                                <a href="services-details.html" class="btn btn-outline w-full !py-3.5 !rounded-2xl group-hover:bg-[var(--accent-color)] group-hover:text-white group-hover:border-[var(--accent-color)] text-[13px] font-bold">
+                                    View Details <i class="fas fa-arrow-right ml-2 text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[2.5rem] p-4 flex flex-col h-full group hover:border-[var(--accent-color)] transition-colors duration-500 hover:shadow-2xl">
+                        <div class="w-full h-56 rounded-[2rem] overflow-hidden relative mb-6">
+                            <img src="images/pexels-cottonbro-8296890.jpg" alt="Ironing & Pressing" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl border border-white/30 text-white font-black uppercase tracking-wider text-sm">
+                                Ironing & Pressing
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4 flex flex-col flex-grow">
+                            <p class="text-[var(--text-muted)] leading-relaxed mb-6 font-medium text-[15px]">
+                                Crisp, professional finishes for your business and formal wear. We utilize state-of-the-art steam pressing for an immaculate, wrinkle-free appearance.
+                            </p>
+                            <div class="mt-auto w-full">
+                                <a href="services-details.html" class="btn btn-outline w-full !py-3.5 !rounded-2xl group-hover:bg-[var(--accent-color)] group-hover:text-white group-hover:border-[var(--accent-color)] text-[13px] font-bold">
+                                    View Details <i class="fas fa-arrow-right ml-2 text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 4 -->
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[2.5rem] p-4 flex flex-col h-full group hover:border-[var(--accent-color)] transition-colors duration-500 hover:shadow-2xl">
+                        <div class="w-full h-56 rounded-[2rem] overflow-hidden relative mb-6">
+                            <img src="images/pexels-arnie-chou-304906-965632.jpg" alt="Leather & Suede" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl border border-white/30 text-white font-black uppercase tracking-wider text-sm">
+                                Leather & Suede
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4 flex flex-col flex-grow">
+                            <p class="text-[var(--text-muted)] leading-relaxed mb-6 font-medium text-[15px]">
+                                Specialized restoration and cleaning processes designed exclusively to revive and protect your expensive leather jackets and suede accessories.
+                            </p>
+                            <div class="mt-auto w-full">
+                                <a href="services-details.html" class="btn btn-outline w-full !py-3.5 !rounded-2xl group-hover:bg-[var(--accent-color)] group-hover:text-white group-hover:border-[var(--accent-color)] text-[13px] font-bold">
+                                    View Details <i class="fas fa-arrow-right ml-2 text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 5 -->
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[2.5rem] p-4 flex flex-col h-full group hover:border-[var(--accent-color)] transition-colors duration-500 hover:shadow-2xl">
+                        <div class="w-full h-56 rounded-[2rem] overflow-hidden relative mb-6">
+                            <img src="images/pexels-mart-production-9558253.jpg" alt="Stain Removal" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl border border-white/30 text-white font-black uppercase tracking-wider text-sm">
+                                Stain Removal
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4 flex flex-col flex-grow">
+                            <p class="text-[var(--text-muted)] leading-relaxed mb-6 font-medium text-[15px]">
+                                Don't throw away that favorite shirt. Our fabric chemists identify and target complex stains using customized enzyme treatments for complete removal.
+                            </p>
+                            <div class="mt-auto w-full">
+                                <a href="services-details.html" class="btn btn-outline w-full !py-3.5 !rounded-2xl group-hover:bg-[var(--accent-color)] group-hover:text-white group-hover:border-[var(--accent-color)] text-[13px] font-bold">
+                                    View Details <i class="fas fa-arrow-right ml-2 text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 6 -->
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[2.5rem] p-4 flex flex-col h-full group hover:border-[var(--accent-color)] transition-colors duration-500 hover:shadow-2xl">
+                        <div class="w-full h-56 rounded-[2rem] overflow-hidden relative mb-6">
+                            <img src="images/pexels-kampus-7414407.jpg" alt="Bedding & Linens" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl border border-white/30 text-white font-black uppercase tracking-wider text-sm">
+                                Bedding & Linens
+                            </div>
+                        </div>
+                        <div class="px-4 pb-4 flex flex-col flex-grow">
+                            <p class="text-[var(--text-muted)] leading-relaxed mb-6 font-medium text-[15px]">
+                                Oversized loads handled with ease. We wash and carefully fold your comforters, duvets, blankets, and pillows so you can enjoy a fresh night's sleep.
+                            </p>
+                            <div class="mt-auto w-full">
+                                <a href="services-details.html" class="btn btn-outline w-full !py-3.5 !rounded-2xl group-hover:bg-[var(--accent-color)] group-hover:text-white group-hover:border-[var(--accent-color)] text-[13px] font-bold">
+                                    View Details <i class="fas fa-arrow-right ml-2 text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-10 pt-4">
+                <div class="lg:col-span-4">
+                    <div class="mb-6">
+                        <a href="index.html" class="inline-flex items-center gap-3 text-2xl font-black tracking-widest uppercase" style="color: var(--text-main) !important; text-decoration: none;">
+                            <i class="fas fa-tshirt" style="color: var(--accent-color); font-size: 1.4rem;"></i>
+                            FreshFold
+                        </a>
+                    </div>
+                    <p class="opacity-80 leading-relaxed text-sm font-medium mb-8 max-w-sm" style="color: var(--text-muted);">
+                        Dedicated to providing immaculate care for your garments. Our professional dry cleaning and wash & fold services guarantee fresh, perfectly pressed clothes every time.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="social-link-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-yelp"></i></a>
+                    </div>
+                </div>
+                <div class="lg:col-span-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+                        <div>
+                            <h4>Customer Portal</h4>
+                            <ul class="space-y-4">
+                                <li><a href="login.html">Customer Login</a></li>
+                                <li><a href="user.html">Order Dashboard</a></li>
+                                <li><a href="#">My Orders</a></li>
+                                <li><a href="pricing.html">Pricing Plan</a></li>
+                                <li><a href="faq.html">Service FAQ</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Our Services</h4>
+                            <ul class="space-y-4">
+                                <li><a href="services.html">Dry Cleaning</a></li>
+                                <li><a href="services.html">Wash & Fold</a></li>
+                                <li><a href="services.html">Ironing Services</a></li>
+                                <li><a href="services.html">Leather & Suede</a></li>
+                                <li><a href="services.html">Stain Removal</a></li>
+                            </ul>
+                        </div>
+                        <div class="sm:col-span-2 md:col-span-1">
+                            <h4>Main Office</h4>
+                            <ul class="space-y-4 text-[var(--text-muted)] text-sm font-medium">
+                                <li class="flex items-start gap-4"><i class="fas fa-map-marker-alt mt-1 shrink-0" style="color: var(--accent-color);"></i><span>456 Clean Street<br>Fabric District, NY 10001</span></li>
+                                <li class="flex items-center gap-4"><i class="fas fa-phone shrink-0" style="color: var(--accent-color);"></i><a href="tel:+15550198" class="break-all hover:text-[var(--accent-color)]">+1 (555) 800-WASH</a></li>
+                                <li class="flex items-center gap-4"><i class="fas fa-envelope shrink-0" style="color: var(--accent-color);"></i><a href="contact.html" class="break-all hover:text-[var(--accent-color)]">hello@freshfold.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom flex flex-col md:flex-row justify-between items-center text-xs gap-6 font-semibold uppercase tracking-widest">
+                <p style="color: var(--text-muted);">&copy; 2026 FreshFold Laundry Services. All rights reserved.</p>
+                <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Garment Care Policy</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        const mobileBtn = document.getElementById('mobile-btn');
+        const fullscreenMenu = document.getElementById('fullscreen-menu');
+        const closeMenu = document.getElementById('close-menu');
+        const drawerOverlay = document.getElementById('drawer-overlay');
+
+        function toggleMenu() {
+            fullscreenMenu.classList.toggle('active');
+            drawerOverlay.classList.toggle('active');
+            document.body.style.overflow = fullscreenMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        mobileBtn.onclick = toggleMenu;
+        closeMenu.onclick = toggleMenu;
+        drawerOverlay.onclick = toggleMenu;
+
+        const themeDesktop = document.getElementById('theme-toggle-desktop');
+        const themeMobile = document.getElementById('theme-toggle-mobile');
+        const theme = localStorage.getItem('theme') || 'light';
+
+        function updateThemeUI(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                if (themeMobile) themeMobile.classList.add('active');
+            } else {
+                document.body.classList.remove('dark-mode');
+                if (themeMobile) themeMobile.classList.remove('active');
+            }
+        }
+
+        updateThemeUI(theme === 'dark');
+
+        function toggleTheme() {
+            const isDark = !document.body.classList.contains('dark-mode');
+            updateThemeUI(isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        themeDesktop.onclick = toggleTheme;
+        if (themeMobile) themeMobile.onclick = toggleTheme;
+
+        const rtlBtn = document.getElementById('rtl-btn');
+        const rtlMobile = document.getElementById('rtl-toggle-mobile');
+        const dir = localStorage.getItem('dir') || 'ltr';
+
+        function updateRTLUI(currentDir) {
+            const isRTL = currentDir === 'rtl';
+            if (rtlBtn) rtlBtn.innerText = isRTL ? 'RTL' : 'LTR';
+            if (rtlMobile) rtlMobile.innerText = isRTL ? 'RTL' : 'LTR';
+        }
+
+        if (dir === 'rtl') { document.documentElement.dir = 'rtl'; }
+        updateRTLUI(dir);
+
+        function toggleRTL() {
+            const isRTL = document.documentElement.dir === 'rtl';
+            const newDir = isRTL ? 'ltr' : 'rtl';
+            document.documentElement.dir = newDir;
+            localStorage.setItem('dir', newDir);
+            updateRTLUI(newDir);
+        }
+
+        if (rtlBtn) rtlBtn.onclick = toggleRTL;
+        if (rtlMobile) rtlMobile.onclick = toggleRTL;
+    </script>
+</body>
+</html>
