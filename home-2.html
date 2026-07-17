@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home 2 - FreshFold Laundry & Dry Cleaning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontWeight: {
+                        semibold: '500',
+                        bold: '600',
+                        extrabold: '800',
+                        black: '900'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* === RESET & CORE === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        /* === THEME VARIABLES (Laundry Blue theme) === */
+        :root {
+            --bg-color: #FAFAFA;
+            --bg-secondary: #F0F9FF;
+            --bg-card: #FFFFFF;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --accent-color: #0EA5E9;
+            --accent-dark: #0284C7;
+            --border-color: #E2E8F0;
+            --nav-bg: #FFFFFF;
+            --drawer-bg: rgba(255, 255, 255, 0.98);
+            --menu-hover-bg: rgba(14, 165, 233, 0.05);
+        }
+
+        /* DARK MODE */
+        body.dark-mode {
+            --bg-color: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-card: #1E293B;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --accent-color: #38BDF8;
+            --accent-dark: #0EA5E9;
+            --border-color: #334155;
+            --nav-bg: #0F172A;
+            --drawer-bg: rgba(15, 23, 42, 0.98);
+            --menu-hover-bg: rgba(56, 189, 248, 0.1);
+        }
+
+        /* RTL SUPPORT */
+        [dir="rtl"] { text-align: right; }
+        [dir="rtl"] .ml-auto { margin-right: auto; margin-left: 0; }
+        [dir="rtl"] .mr-auto { margin-left: auto; margin-right: 0; }
+
+        @keyframes subtleZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        .animate-zoom { animation: subtleZoom 20s infinite alternate ease-in-out; }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 5s ease-in-out infinite; }
+
+        /* === NAVBAR DESIGN === */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: var(--nav-bg); border-bottom: 3px solid var(--accent-color);
+            padding: 0 32px; height: 85px; display: flex; align-items: center;
+            transition: all 0.4s ease;
+        }
+        .navbar.scrolled {
+            height: 70px; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--border-color);
+        }
+        body.dark-mode .navbar.scrolled { box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6); }
+
+        .nav-link {
+            position: relative; padding: 7px 16px; margin: 0 2px;
+            color: var(--text-main); text-decoration: none; font-size: 12px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center;
+            justify-content: center; gap: 6px; cursor: pointer; border-radius: 6px;
+        }
+        .nav-link::before { content: '•'; position: absolute; left: 10px; opacity: 0; transform: translateX(5px); color: var(--accent-color); transition: all 0.3s; font-weight: 900; }
+        .nav-link::after { content: '•'; position: absolute; right: 10px; opacity: 0; transform: translateX(-5px); color: var(--accent-color); transition: all 0.3s; font-weight: 900; }
+        .nav-link:hover::before, .nav-link.active::before, .nav-link:hover::after, .nav-link.active::after { opacity: 1; transform: translateX(0); }
+        .nav-link:hover, .nav-link.active { color: var(--accent-color); background: var(--menu-hover-bg); }
+
+        .dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+        .dropdown-menu {
+            position: absolute; top: 65px; left: 0; transform: translateY(15px);
+            opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+        }
+        .navbar.scrolled .dropdown-menu { top: 55px; }
+        .dropdown-inner {
+            background: var(--bg-card); border: 2px solid var(--border-color);
+            border-radius: 12px; min-width: 240px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            padding: 12px; display: flex; flex-direction: column; gap: 4px;
+        }
+        body.dark-mode .dropdown-inner { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-item {
+            display: block; padding: 12px 16px; border-radius: 6px; color: var(--text-main);
+            text-decoration: none; font-size: 12px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; transition: all 0.2s; text-align: left; white-space: nowrap;
+        }
+        .dropdown-item:hover { background: var(--menu-hover-bg); color: var(--accent-color); transform: translateX(4px); }
+        [dir="rtl"] .dropdown-item:hover { transform: translateX(-4px); }
+
+        /* PILL TOGGLE */
+        .theme-toggle-pill {
+            width: 52px; height: 28px; background: var(--bg-secondary); border-radius: 30px;
+            position: relative; cursor: pointer; display: flex; align-items: center;
+            justify-content: space-between; padding: 0 6px; border: 1px solid var(--border-color);
+        }
+        body.dark-mode .theme-toggle-pill { border-color: var(--border-color); }
+        .theme-toggle-pill i { font-size: 10px; z-index: 1; }
+        .theme-toggle-pill .fa-sun { color: #f59e0b; }
+        .theme-toggle-pill .fa-moon { color: #999; }
+        .theme-toggle-pill .thumb {
+            position: absolute; top: 2px; left: 2px; width: 22px; height: 22px; background: white;
+            border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); z-index: 2; border: 1px solid var(--border-color);
+        }
+        body.dark-mode .theme-toggle-pill .thumb { transform: translateX(24px); background: #333; border-color: var(--border-color); }
+
+        /* RTL BUTTON STYLE */
+        .rtl-btn-style {
+            width: 44px; height: 28px; background: var(--bg-secondary); border-radius: 30px;
+            border: 1px solid var(--border-color); display: flex; align-items: center;
+            justify-content: center; font-size: 10px; font-weight: 800; cursor: pointer;
+            color: var(--text-main); transition: all 0.3s ease;
+        }
+        body.dark-mode .rtl-btn-style { border-color: var(--border-color); }
+        .rtl-btn-style:hover { background: var(--accent-color); color: #fff; border-color: var(--accent-color); }
+
+        /* === BUTTON DESIGN === */
+        .btn {
+            padding: 12px 28px; font-weight: 600; font-size: 12px; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.3s ease; display: inline-flex;
+            align-items: center; justify-content: center; cursor: pointer; position: relative;
+            border: 1px solid transparent; border-radius: 8px;
+        }
+        .btn-solid { background: var(--accent-color); color: #FFFFFF !important; }
+        .btn-solid:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 15px -3px rgba(14, 165, 233, 0.3); }
+        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
+        .btn-outline:hover { border-color: var(--accent-color); color: var(--accent-color) !important; transform: translateY(-2px); }
+
+        /* MOBILE OVERLAY & HAMBURGER */
+        .drawer-overlay {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); z-index: 999;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; backdrop-filter: blur(4px);
+        }
+        .drawer-overlay.active { opacity: 1; visibility: visible; }
+        .fullscreen-menu {
+            position: fixed; top: 0; right: 0; width: 100%; max-width: 400px; height: 100dvh;
+            background: var(--drawer-bg); z-index: 1001; display: flex; flex-direction: column;
+            opacity: 0; visibility: hidden; transform: translateX(100%); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 1px solid var(--border-color);
+        }
+        [dir="rtl"] .fullscreen-menu { right: auto; left: 0; transform: translateX(-100%); border-left: none; border-right: 1px solid var(--border-color); }
+        .fullscreen-menu.active { opacity: 1; visibility: visible; transform: translateX(0); }
+        .mobile-link {
+            display: block; width: 100%; padding: 16px 32px; font-size: 1.1rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); text-decoration: none;
+            transition: all 0.3s; border-bottom: 1px solid var(--border-color);
+        }
+        .mobile-link:hover { color: var(--accent-color); padding-left: 40px; background: var(--menu-hover-bg); }
+        [dir="rtl"] .mobile-link:hover { padding-left: 32px; padding-right: 40px; }
+
+        /* FOOTER */
+        footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding-top: 80px; }
+        body.dark-mode footer { border-color: var(--border-color); }
+        footer h4 { color: var(--text-main); font-weight: 600; font-size: 1.1rem; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        footer a, footer li, footer span { color: var(--text-muted); text-decoration: none; transition: all 0.3s; font-size: 0.95rem; font-weight: 400; }
+        footer a:hover { color: var(--accent-color); }
+        .social-link-circle {
+            width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center; transition: all 0.3s;
+            color: var(--text-main); background: transparent;
+        }
+        .social-link-circle:hover { background: var(--accent-color); border-color: var(--accent-color); color: #FFFFFF; transform: translateY(-3px); }
+        .footer-bottom { border-top: 1px solid var(--border-color); padding: 32px 0; margin-top: 60px; }
+    </style>
+</head>
+
+<body>
+
+    <!-- === NAVBAR === -->
+    <nav class="navbar" id="main-nav">
+        <div class="w-full flex items-center justify-between max-w-[1440px] mx-auto">
+            <div class="flex items-center flex-shrink-0">
+                <a href="index.html" class="inline-flex items-center gap-3 text-2xl font-black tracking-widest uppercase" style="color: var(--text-main) !important; text-decoration: none;">
+                    <i class="fas fa-tshirt" style="color: var(--accent-color); font-size: 1.4rem;"></i>
+                    FreshFold
+                </a>
+            </div>
+
+            <div class="hidden xl:flex justify-center items-center flex-1">
+                <div class="dropdown">
+                    <div class="nav-link active">Home <i class="fas fa-chevron-down text-[9px] ml-1 opacity-50"></i></div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-inner">
+                            <a href="index.html" class="dropdown-item">Home Page 1</a>
+                            <!-- Highlighted Home Page 2 -->
+                            <a href="home-2.html" class="dropdown-item" style="color: var(--accent-color);">Home Page 2</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <div class="dropdown">
+                    <div class="nav-link">Dashboard <i class="fas fa-chevron-down text-[9px] ml-1 opacity-50"></i></div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-inner">
+                            <a href="user.html" class="dropdown-item">User Dashboard</a>
+                            <a href="admin.html" class="dropdown-item">Admin Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hidden xl:flex items-center gap-3">
+                <div id="theme-toggle-desktop" class="theme-toggle-pill" title="Toggle Dark Mode">
+                    <i class="fas fa-sun"></i><i class="fas fa-moon"></i>
+                    <div class="thumb"></div>
+                </div>
+                <button id="rtl-btn" class="rtl-btn-style" title="Toggle LTR/RTL">LTR</button>
+                <div class="w-px h-5 bg-[var(--border-color)] mx-1"></div>
+                <a href="login.html" class="btn btn-outline !border-[var(--accent-color)] !text-[var(--accent-color)] hover:!bg-[var(--accent-color)] hover:!text-white !py-1.5 !px-5 !text-[11px]">Login</a>
+                <a href="register.html" class="btn btn-solid !py-1.5 !px-5 !text-[11px]">Register</a>
+            </div>
+
+            <div class="xl:hidden flex items-center justify-end gap-4">
+                <button id="mobile-btn" class="text-2xl text-[var(--text-main)] transition-colors hover:text-[var(--accent-color)]">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- === HAMBURGER MENU === -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="fullscreen-menu" id="fullscreen-menu">
+        <div class="w-full px-8 py-6 flex justify-between items-center shrink-0 border-b border-[var(--border-color)]">
+            <a href="index.html" class="text-xl font-black tracking-widest uppercase block" style="color: var(--text-main) !important; text-decoration: none;">
+                FreshFold
+            </a>
+            <button id="close-menu" class="w-10 h-10 rounded-full flex items-center justify-center transition-all text-xl text-[var(--text-main)] hover:bg-[var(--bg-secondary)] hover:text-[var(--accent-color)]">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="flex flex-col w-full overflow-y-auto flex-1 py-4">
+            <a href="index.html" class="mobile-link">Home Page 1</a>
+            <!-- Highlighted Home Page 2 -->
+            <a href="home-2.html" class="mobile-link" style="color: var(--accent-color);">Home Page 2</a>
+            <a href="about.html" class="mobile-link">About</a>
+            <a href="services.html" class="mobile-link">Services</a>
+            <a href="pricing.html" class="mobile-link">Pricing</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="faq.html" class="mobile-link">FAQ</a>
+            <a href="contact.html" class="mobile-link">Contact</a>
+            <div class="px-8 mt-6 mb-2">
+                <span class="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">Portals</span>
+            </div>
+            <a href="user.html" class="mobile-link !text-sm text-[var(--text-muted)]">User Dashboard</a>
+            <a href="admin.html" class="mobile-link !text-sm text-[var(--text-muted)]">Admin Dashboard</a>
+        </div>
+        <div class="w-full px-8 py-8 border-t border-[var(--border-color)] flex flex-col gap-6 shrink-0 bg-[var(--bg-secondary)]">
+            <div class="flex justify-between items-center w-full">
+                <div class="flex items-center gap-3">
+                    <span class="text-[var(--text-muted)] font-medium text-[10px] uppercase tracking-widest">Theme</span>
+                    <div id="theme-toggle-mobile" class="theme-toggle-pill"><i class="fas fa-sun"></i><i class="fas fa-moon"></i><div class="thumb"></div></div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-[var(--text-muted)] font-medium text-[10px] uppercase tracking-widest">Dir</span>
+                    <button id="rtl-toggle-mobile" class="rtl-btn-style">LTR</button>
+                </div>
+            </div>
+            <div class="flex gap-4 w-full">
+                <a href="login.html" class="btn btn-outline flex-1 !py-3">Login</a>
+                <a href="register.html" class="btn btn-solid flex-1 !py-3">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- === NEW MODERN SPLIT HERO BANNER === -->
+    <section class="relative w-full min-h-[100dvh] flex items-center pt-20 overflow-hidden bg-[var(--bg-secondary)]">
+        <div class="max-w-[1440px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 h-full gap-8">
+            
+            <!-- Left Side: Clean Typography & CTAs -->
+            <div class="flex flex-col justify-center px-6 lg:px-12 py-16 lg:py-24 z-10 text-center lg:text-left">
+                <div class="flex justify-center lg:justify-start">
+                    <span class="inline-block px-5 py-2 rounded-full bg-[var(--accent-color)]/10 text-[var(--accent-color)] text-[11px] font-black uppercase tracking-[0.2em] mb-8 border border-[var(--accent-color)]/20 shadow-sm">
+                        <i class="fas fa-sparkles mr-2"></i> Premium Garment Care
+                    </span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl lg:text-[5.5rem] font-black text-[var(--text-main)] leading-[1.05] tracking-tight mb-8 uppercase">
+                    Spotless. <br class="hidden sm:block">
+                    <span class="text-[var(--accent-color)]">Effortless.</span>
+                </h1>
+                
+                <p class="text-[var(--text-muted)] text-lg md:text-xl font-medium leading-relaxed max-w-lg mx-auto lg:mx-0 mb-10">
+                    Reclaim your free time. We provide expert dry cleaning and wash-and-fold services directly to your door with unmatched precision and care.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                    <a href="pricing.html" class="btn btn-solid !py-4 !px-10 text-sm shadow-[0_10px_20px_rgba(14,165,233,0.3)] w-full sm:w-auto">
+                        Book a Pickup
+                    </a>
+                    <a href="services.html" class="btn btn-outline !border-[var(--border-color)] hover:!border-[var(--accent-color)] !py-4 !px-10 text-sm bg-[var(--bg-card)] w-full sm:w-auto">
+                        Explore Services
+                    </a>
+                </div>
+                
+                <!-- Trust Indicators -->
+                <div class="mt-12 pt-8 border-t border-[var(--border-color)] flex items-center justify-center lg:justify-start gap-8">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-leaf text-2xl text-emerald-500"></i>
+                        <div class="text-left">
+                            <p class="text-[var(--text-main)] font-bold text-xs uppercase tracking-widest">Eco-Friendly</p>
+                            <p class="text-[var(--text-muted)] text-[10px] font-semibold uppercase">Products</p>
+                        </div>
+                    </div>
+                    <div class="w-px h-10 bg-[var(--border-color)]"></div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-clock text-2xl text-[var(--accent-color)]"></i>
+                        <div class="text-left">
+                            <p class="text-[var(--text-main)] font-bold text-xs uppercase tracking-widest">48 Hour</p>
+                            <p class="text-[var(--text-muted)] text-[10px] font-semibold uppercase">Turnaround</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Large Rounded Image & Floating Badge -->
+            <div class="relative hidden lg:flex items-center justify-end h-full min-h-[600px] w-full p-6 lg:py-16 lg:pr-12">
+                <div class="w-full h-full relative rounded-[3rem] overflow-hidden shadow-2xl border-8 border-[var(--bg-card)]">
+                    <img src="images/pexels-cottonbro-8296890.jpg" alt="Laundry Service Professionals" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                    
+                    <!-- Floating Delivery Badge -->
+                    <div class="absolute bottom-8 left-8 bg-white/90 dark:bg-[#1E293B]/90 backdrop-blur-md rounded-2xl p-5 shadow-2xl border border-white/50 dark:border-slate-700 flex items-center gap-5">
+                        <div class="w-14 h-14 bg-[var(--accent-color)] rounded-xl flex items-center justify-center text-white text-2xl shadow-inner">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-[var(--text-main)] uppercase tracking-wide text-lg">Free Delivery</h4>
+                            <p class="text-[var(--text-muted)] text-sm font-semibold mt-1">On all orders over $25</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Decorative Elements -->
+                <div class="absolute top-20 right-4 w-24 h-24 bg-[var(--accent-color)]/20 rounded-full blur-2xl z-0"></div>
+                <div class="absolute bottom-32 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl z-0"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === MAIN CONTENT (5 BRAND NEW HOME SECTIONS) === -->
+    <main class="w-full bg-[var(--bg-color)]">
+
+        <!-- === SECTION 1: THE FRESHFOLD PROMISE === -->
+        <section class="py-24 bg-[var(--bg-card)] border-b border-[var(--border-color)]">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="flex flex-col">
+                    <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-[0.2em] mb-4">Beyond Clean</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-[var(--text-main)] uppercase tracking-tight leading-tight mb-6">The FreshFold Promise</h2>
+                    <p class="text-[var(--text-muted)] text-lg leading-relaxed font-medium mb-10 max-w-lg">
+                        We don't just wash your clothes; we extend their life. Our facility is equipped with state-of-the-art machines that treat your fabrics exactly the way they were meant to be treated.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div class="flex flex-col gap-3">
+                            <div class="w-12 h-12 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-color)] flex items-center justify-center text-[var(--accent-color)] text-xl"><i class="fas fa-tags"></i></div>
+                            <h4 class="font-bold text-[var(--text-main)] uppercase">Label Adherence</h4>
+                            <p class="text-[var(--text-muted)] text-sm font-medium">We rigorously check every care tag before any item enters the wash.</p>
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <div class="w-12 h-12 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-color)] flex items-center justify-center text-[var(--accent-color)] text-xl"><i class="fas fa-tint-slash"></i></div>
+                            <h4 class="font-bold text-[var(--text-main)] uppercase">Stain Diagnostics</h4>
+                            <p class="text-[var(--text-muted)] text-sm font-medium">Our specialists identify and treat spots with fabric-specific enzymes.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative w-full h-[500px] rounded-[2rem] overflow-hidden shadow-2xl">
+                    <img src="images/pexels-tima-miroshnichenko-8774451.jpg" alt="Our Promise" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <div class="bg-white/20 backdrop-blur-md border border-white/30 p-5 rounded-xl text-white">
+                            <h4 class="font-black uppercase tracking-wider mb-1">Guaranteed Satisfaction</h4>
+                            <p class="text-sm font-medium">Not perfectly clean? We'll re-wash it for free.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === SECTION 2: FABRIC SPECIALIZATIONS === -->
+        <section class="py-24 bg-[var(--bg-secondary)] border-b border-[var(--border-color)]">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                    <div class="max-w-xl">
+                        <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-[0.2em] mb-4 block">Specialized Care</span>
+                        <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tight text-[var(--text-main)]">Expert Fabric Handling</h2>
+                    </div>
+                    <a href="services.html" class="btn btn-solid !py-3">See All Specialities</a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="group relative h-[450px] rounded-3xl overflow-hidden shadow-lg border border-[var(--border-color)] cursor-pointer">
+                        <img src="images/pexels-helen1-10446284.jpg" alt="Silks" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
+                        <div class="absolute bottom-8 left-8 right-8">
+                            <h3 class="text-2xl font-black text-white uppercase mb-2">Silks & Delicates</h3>
+                            <p class="text-white/80 text-sm font-medium">Gentle, cold-water washing and air-drying to maintain original texture.</p>
+                        </div>
+                    </div>
+                    <div class="group relative h-[450px] rounded-3xl overflow-hidden shadow-lg border border-[var(--border-color)] cursor-pointer md:-translate-y-8">
+                        <img src="images/pexels-kings-studio-2154777299-36241895.jpg" alt="Denim" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
+                        <div class="absolute bottom-8 left-8 right-8">
+                            <h3 class="text-2xl font-black text-white uppercase mb-2">Heavy Cottons & Denim</h3>
+                            <p class="text-white/80 text-sm font-medium">Color-preserving washes that prevent shrinking and fading over time.</p>
+                        </div>
+                    </div>
+                    <div class="group relative h-[450px] rounded-3xl overflow-hidden shadow-lg border border-[var(--border-color)] cursor-pointer">
+                        <img src="images/pexels-arnie-chou-304906-965632.jpg" alt="Leathers" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
+                        <div class="absolute bottom-8 left-8 right-8">
+                            <h3 class="text-2xl font-black text-white uppercase mb-2">Leather & Suede</h3>
+                            <p class="text-white/80 text-sm font-medium">Specialized dry cleaning techniques dedicated to reviving natural hides.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === SECTION 3: VIP LAUNDRY CLUB (DARK CTA) === -->
+        <section class="py-24 relative overflow-hidden flex items-center justify-center min-h-[60vh]">
+            <div class="absolute inset-0 z-0">
+                <img src="images/pexels-enginakyurt-27376258.jpg" alt="VIP Club Background" class="w-full h-full object-cover object-center opacity-30">
+                <div class="absolute inset-0 bg-[#0F172A]/95 backdrop-blur-sm"></div>
+            </div>
+            <div class="max-w-[1000px] mx-auto px-6 w-full relative z-10 text-center flex flex-col items-center">
+                <div class="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center text-white text-3xl mb-8 shadow-[0_0_30px_rgba(245,158,11,0.3)]">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <span class="text-amber-400 text-sm font-bold uppercase tracking-[0.2em] mb-4 block">Members Only</span>
+                <h2 class="text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-tight mb-6">
+                    Join The Fresh Club.
+                </h2>
+                <p class="text-slate-300 text-lg md:text-xl leading-relaxed font-medium mb-12 max-w-2xl">
+                    Unlock unlimited free deliveries, 15% off all dry cleaning services, and priority next-day turnaround for a flat monthly rate. Never think about laundry again.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+                    <a href="pricing.html" class="btn bg-amber-500 hover:bg-amber-600 text-black !py-4 !px-10 text-sm border-none shadow-[0_10px_20px_rgba(245,158,11,0.3)]">View Club Pricing</a>
+                    <a href="faq.html" class="btn btn-outline !border-slate-500 !text-slate-300 hover:!bg-slate-800 hover:!text-white hover:!border-slate-400 !py-4 !px-10 text-sm">How It Works</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- === SECTION 4: MEET THE EXPERTS === -->
+        <section class="py-24 bg-[var(--bg-color)] border-b border-[var(--border-color)]">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12 text-center">
+                <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-[0.2em] mb-4 block">Our Team</span>
+                <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tight text-[var(--text-main)] mb-16">The Fabric Experts</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+                    <div class="flex flex-col items-center">
+                        <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-[var(--bg-secondary)] shadow-xl mb-6 relative group">
+                            <img src="images/pexels-gyldo-2149853862-31266420.jpg" alt="Expert 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <h3 class="text-xl font-black text-[var(--text-main)] uppercase tracking-wide">David Vance</h3>
+                        <p class="text-[var(--accent-color)] text-xs font-bold uppercase tracking-widest mt-1 mb-4">Master Cleaner</p>
+                        <p class="text-[var(--text-muted)] text-sm font-medium leading-relaxed max-w-xs">With 15 years in textile restoration, David leads our stain diagnosis and dry cleaning operations.</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-[var(--bg-secondary)] shadow-xl mb-6 relative group">
+                            <img src="images/pexels-ron-lach-10565610.jpg" alt="Expert 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <h3 class="text-xl font-black text-[var(--text-main)] uppercase tracking-wide">Sarah Lin</h3>
+                        <p class="text-[var(--accent-color)] text-xs font-bold uppercase tracking-widest mt-1 mb-4">Quality Control Lead</p>
+                        <p class="text-[var(--text-muted)] text-sm font-medium leading-relaxed max-w-xs">Sarah inspects every single order before it gets packaged, ensuring every fold is perfectly crisp.</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-[var(--bg-secondary)] shadow-xl mb-6 relative group">
+                            <img src="images/pexels-open-borders-36478468.jpg" alt="Expert 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <h3 class="text-xl font-black text-[var(--text-main)] uppercase tracking-wide">Marcus Reed</h3>
+                        <p class="text-[var(--accent-color)] text-xs font-bold uppercase tracking-widest mt-1 mb-4">Logistics Manager</p>
+                        <p class="text-[var(--text-muted)] text-sm font-medium leading-relaxed max-w-xs">Marcus ensures our fleet of eco-friendly vans hit their delivery windows with 99.9% accuracy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- === SECTION 5: COVERAGE AREA & ZIP CHECK === -->
+        <section class="py-24 bg-[var(--bg-secondary)] border-b border-[var(--border-color)]">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative w-full h-[400px] lg:h-[500px] rounded-[2rem] overflow-hidden shadow-xl border-4 border-[var(--border-color)] order-2 lg:order-1">
+                    <img src="images/pexels-matreding-10344208.jpg" alt="Our City" class="w-full h-full object-cover opacity-90">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-8">
+                        <h3 class="text-3xl font-black text-white uppercase tracking-wider">Now Serving <br><span class="text-[var(--accent-color)]">The Metro Area</span></h3>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <div class="w-16 h-16 bg-[var(--bg-card)] rounded-2xl flex items-center justify-center text-[var(--accent-color)] text-2xl mb-8 shadow-sm border border-[var(--border-color)]">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-[0.2em] mb-4 block">We Are Local</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-[var(--text-main)] uppercase tracking-tight leading-tight mb-6">Check Your Coverage</h2>
+                    <p class="text-[var(--text-muted)] text-lg leading-relaxed font-medium mb-10 max-w-md">
+                        We are rapidly expanding our delivery zones. Enter your zip code below to see if FreshFold operates in your neighborhood yet.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md">
+                        <input type="text" placeholder="Enter Zip Code (e.g. 10001)" class="w-full px-6 py-4 rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-main)] outline-none focus:border-[var(--accent-color)] font-medium">
+                        <button class="btn btn-solid shrink-0 !py-4 !px-8">Check Area</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- === FOOTER === -->
+    <footer>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-10 pt-4">
+                <div class="lg:col-span-4">
+                    <div class="mb-6">
+                        <a href="index.html" class="inline-flex items-center gap-3 text-2xl font-black tracking-widest uppercase" style="color: var(--text-main) !important; text-decoration: none;">
+                            <i class="fas fa-tshirt" style="color: var(--accent-color); font-size: 1.4rem;"></i>
+                            FreshFold
+                        </a>
+                    </div>
+                    <p class="opacity-80 leading-relaxed text-sm font-medium mb-8 max-w-sm" style="color: var(--text-muted);">
+                        Dedicated to providing immaculate care for your garments. Our professional dry cleaning and wash & fold services guarantee fresh, perfectly pressed clothes every time.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="social-link-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-yelp"></i></a>
+                    </div>
+                </div>
+                <div class="lg:col-span-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+                        <div>
+                            <h4>Customer Portal</h4>
+                            <ul class="space-y-4">
+                                <li><a href="login.html">Customer Login</a></li>
+                                <li><a href="user.html">Order Dashboard</a></li>
+                                <li><a href="#">My Orders</a></li>
+                                <li><a href="pricing.html">Pricing Plan</a></li>
+                                <li><a href="faq.html">Service FAQ</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Our Services</h4>
+                            <ul class="space-y-4">
+                                <li><a href="services.html">Dry Cleaning</a></li>
+                                <li><a href="services.html">Wash & Fold</a></li>
+                                <li><a href="services.html">Ironing Services</a></li>
+                                <li><a href="services.html">Leather & Suede</a></li>
+                                <li><a href="services.html">Stain Removal</a></li>
+                            </ul>
+                        </div>
+                        <div class="sm:col-span-2 md:col-span-1">
+                            <h4>Main Office</h4>
+                            <ul class="space-y-4 text-[var(--text-muted)] text-sm font-medium">
+                                <li class="flex items-start gap-4"><i class="fas fa-map-marker-alt mt-1 shrink-0" style="color: var(--accent-color);"></i><span>456 Clean Street<br>Fabric District, NY 10001</span></li>
+                                <li class="flex items-center gap-4"><i class="fas fa-phone shrink-0" style="color: var(--accent-color);"></i><a href="tel:+15550198" class="break-all hover:text-[var(--accent-color)]">+1 (555) 800-WASH</a></li>
+                                <li class="flex items-center gap-4"><i class="fas fa-envelope shrink-0" style="color: var(--accent-color);"></i><a href="contact.html" class="break-all hover:text-[var(--accent-color)]">hello@freshfold.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom flex flex-col md:flex-row justify-between items-center text-xs gap-6 font-semibold uppercase tracking-widest">
+                <p style="color: var(--text-muted);">&copy; 2026 FreshFold Laundry Services. All rights reserved.</p>
+                <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Garment Care Policy</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- === SCRIPTS === -->
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        const mobileBtn = document.getElementById('mobile-btn');
+        const fullscreenMenu = document.getElementById('fullscreen-menu');
+        const closeMenu = document.getElementById('close-menu');
+        const drawerOverlay = document.getElementById('drawer-overlay');
+
+        function toggleMenu() {
+            fullscreenMenu.classList.toggle('active');
+            drawerOverlay.classList.toggle('active');
+            document.body.style.overflow = fullscreenMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        mobileBtn.onclick = toggleMenu;
+        closeMenu.onclick = toggleMenu;
+        drawerOverlay.onclick = toggleMenu;
+
+        const themeDesktop = document.getElementById('theme-toggle-desktop');
+        const themeMobile = document.getElementById('theme-toggle-mobile');
+        const theme = localStorage.getItem('theme') || 'light';
+
+        function updateThemeUI(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                if (themeMobile) themeMobile.classList.add('active');
+            } else {
+                document.body.classList.remove('dark-mode');
+                if (themeMobile) themeMobile.classList.remove('active');
+            }
+        }
+
+        updateThemeUI(theme === 'dark');
+
+        function toggleTheme() {
+            const isDark = !document.body.classList.contains('dark-mode');
+            updateThemeUI(isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        themeDesktop.onclick = toggleTheme;
+        if (themeMobile) themeMobile.onclick = toggleTheme;
+
+        const rtlBtn = document.getElementById('rtl-btn');
+        const rtlMobile = document.getElementById('rtl-toggle-mobile');
+        const dir = localStorage.getItem('dir') || 'ltr';
+
+        function updateRTLUI(currentDir) {
+            const isRTL = currentDir === 'rtl';
+            if (rtlBtn) rtlBtn.innerText = isRTL ? 'RTL' : 'LTR';
+            if (rtlMobile) rtlMobile.innerText = isRTL ? 'RTL' : 'LTR';
+        }
+
+        if (dir === 'rtl') { document.documentElement.dir = 'rtl'; }
+        updateRTLUI(dir);
+
+        function toggleRTL() {
+            const isRTL = document.documentElement.dir === 'rtl';
+            const newDir = isRTL ? 'ltr' : 'rtl';
+            document.documentElement.dir = newDir;
+            localStorage.setItem('dir', newDir);
+            updateRTLUI(newDir);
+        }
+
+        if (rtlBtn) rtlBtn.onclick = toggleRTL;
+        if (rtlMobile) rtlMobile.onclick = toggleRTL;
+    </script>
+</body>
+</html>
