@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - FreshFold</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/jpeg" href="images\images (4).png">
+    <link rel="icon" type="image/png" href="images\images (4).png">
     <script>
         tailwind.config = {
             theme: {
@@ -20,13 +22,23 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <style>
         /* === RESET & CORE === */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; overflow-x: hidden; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
@@ -66,137 +78,436 @@
         }
 
         /* RTL SUPPORT */
-        [dir="rtl"] { text-align: right; }
-        [dir="rtl"] .ml-auto { margin-right: auto; margin-left: 0; }
-        [dir="rtl"] .mr-auto { margin-left: auto; margin-right: 0; }
+        [dir="rtl"] {
+            text-align: right;
+        }
+
+        [dir="rtl"] .ml-auto {
+            margin-right: auto;
+            margin-left: 0;
+        }
+
+        [dir="rtl"] .mr-auto {
+            margin-left: auto;
+            margin-right: 0;
+        }
 
         @keyframes subtleZoom {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.05);
+            }
         }
-        .animate-zoom { animation: subtleZoom 20s infinite alternate ease-in-out; }
+
+        .animate-zoom {
+            animation: subtleZoom 20s infinite alternate ease-in-out;
+        }
 
         /* === NAVBAR DESIGN === */
         .navbar {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: var(--nav-bg); border-bottom: 3px solid var(--accent-color);
-            padding: 0 32px; height: 85px; display: flex; align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--nav-bg);
+            border-bottom: 3px solid var(--accent-color);
+            padding: 0 32px;
+            height: 85px;
+            display: flex;
+            align-items: center;
             transition: all 0.4s ease;
         }
+
         .navbar.scrolled {
-            height: 70px; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            height: 70px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
             border-bottom: 1px solid var(--border-color);
         }
-        body.dark-mode .navbar.scrolled { box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6); }
+
+        body.dark-mode .navbar.scrolled {
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+        }
 
         .nav-link {
-            position: relative; padding: 7px 16px; margin: 0 2px;
-            color: var(--text-main); text-decoration: none; font-size: 12px;
-            font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-            transition: all 0.3s ease; display: inline-flex; align-items: center;
-            justify-content: center; gap: 6px; cursor: pointer; border-radius: 6px;
+            position: relative;
+            padding: 7px 16px;
+            margin: 0 2px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            border-radius: 6px;
         }
-        .nav-link::before { content: '•'; position: absolute; left: 10px; opacity: 0; transform: translateX(5px); color: var(--accent-color); transition: all 0.3s; font-weight: 900; }
-        .nav-link::after { content: '•'; position: absolute; right: 10px; opacity: 0; transform: translateX(-5px); color: var(--accent-color); transition: all 0.3s; font-weight: 900; }
-        .nav-link:hover::before, .nav-link.active::before, .nav-link:hover::after, .nav-link.active::after { opacity: 1; transform: translateX(0); }
-        .nav-link:hover, .nav-link.active { color: var(--accent-color); background: var(--menu-hover-bg); }
 
-        .dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+        .nav-link::before {
+            content: '•';
+            position: absolute;
+            left: 10px;
+            opacity: 0;
+            transform: translateX(5px);
+            color: var(--accent-color);
+            transition: all 0.3s;
+            font-weight: 900;
+        }
+
+        .nav-link::after {
+            content: '•';
+            position: absolute;
+            right: 10px;
+            opacity: 0;
+            transform: translateX(-5px);
+            color: var(--accent-color);
+            transition: all 0.3s;
+            font-weight: 900;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before,
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-color);
+            background: var(--menu-hover-bg);
+        }
+
+        .dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
         .dropdown-menu {
-            position: absolute; top: 65px; left: 0; transform: translateY(15px);
-            opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute;
+            top: 65px;
+            left: 0;
+            transform: translateY(15px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 100;
         }
-        .navbar.scrolled .dropdown-menu { top: 55px; }
+
+        .navbar.scrolled .dropdown-menu {
+            top: 55px;
+        }
+
         .dropdown-inner {
-            background: var(--bg-card); border: 2px solid var(--border-color);
-            border-radius: 12px; min-width: 240px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            padding: 12px; display: flex; flex-direction: column; gap: 4px;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            min-width: 240px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
-        body.dark-mode .dropdown-inner { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); }
-        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+
+        body.dark-mode .dropdown-inner {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
         .dropdown-item {
-            display: block; padding: 12px 16px; border-radius: 6px; color: var(--text-main);
-            text-decoration: none; font-size: 12px; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 0.5px; transition: all 0.2s; text-align: left; white-space: nowrap;
+            display: block;
+            padding: 12px 16px;
+            border-radius: 6px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+            text-align: left;
+            white-space: nowrap;
         }
-        .dropdown-item:hover { background: var(--menu-hover-bg); color: var(--accent-color); transform: translateX(4px); }
-        [dir="rtl"] .dropdown-item:hover { transform: translateX(-4px); }
+
+        .dropdown-item:hover {
+            background: var(--menu-hover-bg);
+            color: var(--accent-color);
+            transform: translateX(4px);
+        }
+
+        [dir="rtl"] .dropdown-item:hover {
+            transform: translateX(-4px);
+        }
 
         /* PILL TOGGLE */
         .theme-toggle-pill {
-            width: 52px; height: 28px; background: var(--bg-secondary); border-radius: 30px;
-            position: relative; cursor: pointer; display: flex; align-items: center;
-            justify-content: space-between; padding: 0 6px; border: 1px solid var(--border-color);
+            width: 52px;
+            height: 28px;
+            background: var(--bg-secondary);
+            border-radius: 30px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6px;
+            border: 1px solid var(--border-color);
         }
-        body.dark-mode .theme-toggle-pill { border-color: var(--border-color); }
-        .theme-toggle-pill i { font-size: 10px; z-index: 1; }
-        .theme-toggle-pill .fa-sun { color: #f59e0b; }
-        .theme-toggle-pill .fa-moon { color: #999; }
+
+        body.dark-mode .theme-toggle-pill {
+            border-color: var(--border-color);
+        }
+
+        .theme-toggle-pill i {
+            font-size: 10px;
+            z-index: 1;
+        }
+
+        .theme-toggle-pill .fa-sun {
+            color: #f59e0b;
+        }
+
+        .theme-toggle-pill .fa-moon {
+            color: #999;
+        }
+
         .theme-toggle-pill .thumb {
-            position: absolute; top: 2px; left: 2px; width: 22px; height: 22px; background: white;
-            border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); z-index: 2; border: 1px solid var(--border-color);
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            border: 1px solid var(--border-color);
         }
-        body.dark-mode .theme-toggle-pill .thumb { transform: translateX(24px); background: #333; border-color: var(--border-color); }
+
+        body.dark-mode .theme-toggle-pill .thumb {
+            transform: translateX(24px);
+            background: #333;
+            border-color: var(--border-color);
+        }
 
         /* RTL BUTTON STYLE */
         .rtl-btn-style {
-            width: 44px; height: 28px; background: var(--bg-secondary); border-radius: 30px;
-            border: 1px solid var(--border-color); display: flex; align-items: center;
-            justify-content: center; font-size: 10px; font-weight: 800; cursor: pointer;
-            color: var(--text-main); transition: all 0.3s ease;
+            width: 44px;
+            height: 28px;
+            background: var(--bg-secondary);
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            color: var(--text-main);
+            transition: all 0.3s ease;
         }
-        body.dark-mode .rtl-btn-style { border-color: var(--border-color); }
-        .rtl-btn-style:hover { background: var(--accent-color); color: #fff; border-color: var(--accent-color); }
+
+        body.dark-mode .rtl-btn-style {
+            border-color: var(--border-color);
+        }
+
+        .rtl-btn-style:hover {
+            background: var(--accent-color);
+            color: #fff;
+            border-color: var(--accent-color);
+        }
 
         /* === BUTTON DESIGN === */
         .btn {
-            padding: 12px 28px; font-weight: 600; font-size: 12px; text-transform: uppercase;
-            letter-spacing: 1px; transition: all 0.3s ease; display: inline-flex;
-            align-items: center; justify-content: center; cursor: pointer; position: relative;
-            border: 1px solid transparent; border-radius: 8px;
+            padding: 12px 28px;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid transparent;
+            border-radius: 8px;
         }
-        .btn-solid { background: var(--accent-color); color: #FFFFFF !important; }
-        .btn-solid:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 15px -3px rgba(14, 165, 233, 0.3); }
-        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
-        .btn-outline:hover { border-color: var(--accent-color); color: var(--accent-color) !important; transform: translateY(-2px); }
+
+        .btn-solid {
+            background: var(--accent-color);
+            color: #FFFFFF !important;
+        }
+
+        .btn-solid:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px -3px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color) !important;
+            transform: translateY(-2px);
+        }
 
         /* MOBILE OVERLAY & HAMBURGER */
         .drawer-overlay {
-            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); z-index: 999;
-            opacity: 0; visibility: hidden; transition: all 0.3s ease; backdrop-filter: blur(4px);
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
         }
-        .drawer-overlay.active { opacity: 1; visibility: visible; }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         .fullscreen-menu {
-            position: fixed; top: 0; right: 0; width: 100%; max-width: 400px; height: 100dvh;
-            background: var(--drawer-bg); z-index: 1001; display: flex; flex-direction: column;
-            opacity: 0; visibility: hidden; transform: translateX(100%); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 400px;
+            height: 100dvh;
+            background: var(--drawer-bg);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             border-left: 1px solid var(--border-color);
         }
-        [dir="rtl"] .fullscreen-menu { right: auto; left: 0; transform: translateX(-100%); border-left: none; border-right: 1px solid var(--border-color); }
-        .fullscreen-menu.active { opacity: 1; visibility: visible; transform: translateX(0); }
-        .mobile-link {
-            display: block; width: 100%; padding: 16px 32px; font-size: 1.1rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); text-decoration: none;
-            transition: all 0.3s; border-bottom: 1px solid var(--border-color);
+
+        [dir="rtl"] .fullscreen-menu {
+            right: auto;
+            left: 0;
+            transform: translateX(-100%);
+            border-left: none;
+            border-right: 1px solid var(--border-color);
         }
-        .mobile-link:hover { color: var(--accent-color); padding-left: 40px; background: var(--menu-hover-bg); }
-        [dir="rtl"] .mobile-link:hover { padding-left: 32px; padding-right: 40px; }
+
+        .fullscreen-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .mobile-link {
+            display: block;
+            width: 100%;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .mobile-link:hover {
+            color: var(--accent-color);
+            padding-left: 40px;
+            background: var(--menu-hover-bg);
+        }
+
+        [dir="rtl"] .mobile-link:hover {
+            padding-left: 32px;
+            padding-right: 40px;
+        }
 
         /* FOOTER */
-        footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding-top: 80px; }
-        body.dark-mode footer { border-color: var(--border-color); }
-        footer h4 { color: var(--text-main); font-weight: 600; font-size: 1.1rem; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1px; }
-        footer a, footer li, footer span { color: var(--text-muted); text-decoration: none; transition: all 0.3s; font-size: 0.95rem; font-weight: 400; }
-        footer a:hover { color: var(--accent-color); }
-        .social-link-circle {
-            width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border-color);
-            display: flex; align-items: center; justify-content: center; transition: all 0.3s;
-            color: var(--text-main); background: transparent;
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding-top: 80px;
         }
-        .social-link-circle:hover { background: var(--accent-color); border-color: var(--accent-color); color: #FFFFFF; transform: translateY(-3px); }
-        .footer-bottom { border-top: 1px solid var(--border-color); padding: 32px 0; margin-top: 60px; }
+
+        body.dark-mode footer {
+            border-color: var(--border-color);
+        }
+
+        footer h4 {
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        footer a,
+        footer li,
+        footer span {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        footer a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-link-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--text-main);
+            background: transparent;
+        }
+
+        .social-link-circle:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #FFFFFF;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding: 32px 0;
+            margin-top: 60px;
+        }
     </style>
 </head>
 
@@ -205,7 +516,8 @@
     <nav class="navbar" id="main-nav">
         <div class="w-full flex items-center justify-between max-w-[1440px] mx-auto">
             <div class="flex items-center flex-shrink-0">
-                <a href="index.html" class="inline-flex items-center gap-3 text-2xl font-black tracking-widest uppercase" style="color: var(--text-main) !important; text-decoration: none;">
+                <a href="index.html" class="inline-flex items-center gap-3 text-2xl font-bold tracking-widest uppercase"
+                    style="color: var(--text-main) !important; text-decoration: none;">
                     <i class="fas fa-tshirt" style="color: var(--accent-color); font-size: 1.4rem;"></i>
                     FreshFold
                 </a>
@@ -245,12 +557,14 @@
                 </div>
                 <button id="rtl-btn" class="rtl-btn-style" title="Toggle LTR/RTL">LTR</button>
                 <div class="w-px h-5 bg-[var(--border-color)] mx-1"></div>
-                <a href="login.html" class="btn btn-outline !border-[var(--accent-color)] !text-[var(--accent-color)] hover:!bg-[var(--accent-color)] hover:!text-white !py-1.5 !px-5 !text-[11px]">Login</a>
-                <a href="register.html" class="btn btn-solid !py-1.5 !px-5 !text-[11px]">Register</a>
+                <a href="login.html"
+                    class="btn btn-outline !border-[var(--accent-color)] !text-[var(--accent-color)] hover:!bg-[var(--accent-color)] hover:!text-white !w-[90px] !h-[34px] !p-0 !text-[11px]">Login</a>
+                <a href="register.html" class="btn btn-solid !w-[90px] !h-[34px] !p-0 !text-[11px]">Register</a>
             </div>
 
             <div class="xl:hidden flex items-center justify-end gap-4">
-                <button id="mobile-btn" class="text-2xl text-[var(--text-main)] transition-colors hover:text-[var(--accent-color)]">
+                <button id="mobile-btn"
+                    class="text-2xl text-[var(--text-main)] transition-colors hover:text-[var(--accent-color)]">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -260,10 +574,12 @@
     <div class="drawer-overlay" id="drawer-overlay"></div>
     <div class="fullscreen-menu" id="fullscreen-menu">
         <div class="w-full px-8 py-6 flex justify-between items-center shrink-0 border-b border-[var(--border-color)]">
-            <a href="index.html" class="text-xl font-black tracking-widest uppercase block" style="color: var(--text-main) !important; text-decoration: none;">
+            <a href="index.html" class="text-xl font-bold tracking-widest uppercase block"
+                style="color: var(--text-main) !important; text-decoration: none;">
                 FreshFold
             </a>
-            <button id="close-menu" class="w-10 h-10 rounded-full flex items-center justify-center transition-all text-xl text-[var(--text-main)] hover:bg-[var(--bg-secondary)] hover:text-[var(--accent-color)]">
+            <button id="close-menu"
+                class="w-10 h-10 rounded-full flex items-center justify-center transition-all text-xl text-[var(--text-main)] hover:bg-[var(--bg-secondary)] hover:text-[var(--accent-color)]">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -277,16 +593,22 @@
             <a href="faq.html" class="mobile-link">FAQ</a>
             <a href="contact.html" class="mobile-link">Contact</a>
             <div class="px-8 mt-6 mb-2">
-                <span class="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">Portals</span>
+                <span
+                    class="text-[10px] font-semibold text-[var(--text-muted)] uppercase tracking-widest">Portals</span>
             </div>
             <a href="user.html" class="mobile-link !text-sm text-[var(--text-muted)]">User Dashboard</a>
             <a href="admin.html" class="mobile-link !text-sm text-[var(--text-muted)]">Admin Dashboard</a>
         </div>
-        <div class="w-full px-8 py-8 border-t border-[var(--border-color)] flex flex-col gap-6 shrink-0 bg-[var(--bg-secondary)]">
+        <div
+            class="w-full px-8 py-8 border-t border-[var(--border-color)] flex flex-col gap-6 shrink-0 bg-[var(--bg-secondary)]">
             <div class="flex justify-between items-center w-full">
                 <div class="flex items-center gap-3">
-                    <span class="text-[var(--text-muted)] font-medium text-[10px] uppercase tracking-widest">Theme</span>
-                    <div id="theme-toggle-mobile" class="theme-toggle-pill"><i class="fas fa-sun"></i><i class="fas fa-moon"></i><div class="thumb"></div></div>
+                    <span
+                        class="text-[var(--text-muted)] font-medium text-[10px] uppercase tracking-widest">Theme</span>
+                    <div id="theme-toggle-mobile" class="theme-toggle-pill"><i class="fas fa-sun"></i><i
+                            class="fas fa-moon"></i>
+                        <div class="thumb"></div>
+                    </div>
                 </div>
                 <div class="flex items-center gap-3">
                     <span class="text-[var(--text-muted)] font-medium text-[10px] uppercase tracking-widest">Dir</span>
@@ -301,24 +623,30 @@
     </div>
 
     <!-- H-[100dvh] Hero Banner specific to About Page -->
-    <section class="relative w-full h-[100dvh] pt-20 flex items-center justify-center overflow-hidden border-b border-[var(--border-color)]">
+    <section
+        class="relative w-full h-[100dvh] pt-20 flex items-center justify-center overflow-hidden border-b border-[var(--border-color)]">
         <div class="absolute inset-0 z-0 bg-black">
-            <img src="images/pexels-tima-miroshnichenko-8774368.jpg" alt="About FreshFold" class="w-full h-full object-cover animate-zoom opacity-50" />
+            <img src="images/pexels-tima-miroshnichenko-8774368.jpg" alt="About FreshFold"
+                class="w-full h-full object-cover animate-zoom opacity-50" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
         </div>
 
-        <div class="max-w-[1200px] mx-auto px-6 w-full flex flex-col items-center justify-center text-center relative z-10 mt-16">
-            <span class="text-[var(--accent-color)] text-sm font-extrabold uppercase tracking-[0.2em] mb-6 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
+        <div
+            class="max-w-[1200px] mx-auto px-6 w-full flex flex-col items-center justify-center text-center relative z-10 mt-16">
+            <span
+                class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-[0.2em] mb-6 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
                 <i class="fas fa-users mr-2"></i> Our Story
             </span>
 
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-tight mb-6 text-white tracking-tight uppercase">
+            <h1
+                class="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6 text-white tracking-tight uppercase">
                 Redefining <br class="hidden sm:block">
                 <span class="italic font-light" style="color: var(--accent-color);">Garment Care.</span>
             </h1>
 
             <p class="text-gray-200 text-lg md:text-xl leading-relaxed max-w-2xl font-medium drop-shadow-md">
-                We started FreshFold with a simple mission: to take the hassle out of laundry day while delivering uncompromising quality and eco-friendly care to your everyday wardrobe.
+                We started FreshFold with a simple mission: to take the hassle out of laundry day while delivering
+                uncompromising quality and eco-friendly care to your everyday wardrobe.
             </p>
         </div>
     </section>
@@ -326,81 +654,184 @@
     <!-- MAIN CONTENT: 5 Centered About Sections (~70 lines each) -->
     <main class="w-full bg-[var(--bg-color)]">
 
-        <!-- SECTION 1: Our Origins (Centered text + stats) -->
-        <section class="min-h-[75vh] py-24 bg-[var(--bg-color)] border-b border-[var(--border-color)] flex flex-col justify-center overflow-hidden relative">
-            <div class="max-w-[1440px] mx-auto px-6 lg:px-12 w-full relative z-10 flex flex-col items-center text-center">
-                <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-[0.2em] mb-4 block">Where It Began</span>
-                <h2 class="text-4xl md:text-5xl font-black text-[var(--text-main)] uppercase tracking-tight leading-tight mb-8">
-                    From a single washer <br class="hidden md:block"> to a city-wide service.
-                </h2>
-                
-                <p class="text-[var(--text-muted)] text-xl leading-relaxed max-w-3xl mb-16">
-                    Back in 2018, we realized that people were spending countless hours sorting, washing, and folding clothes—time they could be spending with family or pursuing passions. We set out to build a modern, technology-driven laundry service that prioritizes fabric longevity and customer convenience above all else.
+        <!-- SECTION 1: Our Story (Centered text + stats) -->
+        <section class="py-20 bg-[var(--bg-color)] border-b border-[var(--border-color)]">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12 w-full flex flex-col items-center text-center">
+                <span
+                    class="text-[var(--accent-color)] text-sm font-semibold uppercase tracking-[0.2em] mb-4 block">Where
+                    It Began</span>
+                <h2
+                    class="text-4xl md:text-5xl font-bold text-[var(--text-main)] uppercase tracking-tight leading-tight mb-6">
+                    Our Story</h2>
+                <p class="text-[var(--text-muted)] text-lg leading-relaxed max-w-3xl mb-12">
+                    Back in 2018, we set out to build a modern, technology-driven laundry service that gives people back
+                    their time. What began as a single commercial washer has grown into a city-wide operation — tough on
+                    stains, gentle on the earth.
                 </p>
-                
-                <div class="w-full max-w-5xl rounded-[40px] overflow-hidden shadow-2xl border-4 border-[var(--border-color)] relative aspect-[21/9] mb-16 group">
-                    <img src="images/pexels-helen1-10446284.jpg" alt="Our first facility" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
-                    <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700"></div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-4xl">
+                    <div
+                        class="bg-[var(--bg-secondary)] p-6 rounded-3xl border border-[var(--border-color)] flex flex-col items-center">
+                        <span class="text-4xl font-bold text-[var(--accent-color)] mb-2">5M+</span>
+                        <span class="text-[var(--text-main)] font-semibold text-xs uppercase tracking-widest">Garments
+                            Cleaned</span>
+                    </div>
+                    <div
+                        class="bg-[var(--bg-secondary)] p-6 rounded-3xl border border-[var(--border-color)] flex flex-col items-center">
+                        <span class="text-4xl font-bold text-[var(--accent-color)] mb-2">48h</span>
+                        <span class="text-[var(--text-main)] font-semibold text-xs uppercase tracking-widest">Turnaround
+                            Time</span>
+                    </div>
+                    <div
+                        class="bg-[var(--bg-secondary)] p-6 rounded-3xl border border-[var(--border-color)] flex flex-col items-center">
+                        <span class="text-4xl font-bold text-[var(--accent-color)] mb-2">12k</span>
+                        <span class="text-[var(--text-main)] font-semibold text-xs uppercase tracking-widest">Happy
+                            Clients</span>
+                    </div>
+                    <div
+                        class="bg-[var(--bg-secondary)] p-6 rounded-3xl border border-[var(--border-color)] flex flex-col items-center">
+                        <span class="text-4xl font-bold text-[var(--accent-color)] mb-2">100%</span>
+                        <span
+                            class="text-[var(--text-main)] font-semibold text-xs uppercase tracking-widest">Eco-Solvents</span>
+                    </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-5xl">
-                    <div class="bg-[var(--bg-secondary)] p-8 rounded-3xl border border-[var(--border-color)] flex flex-col items-center">
-                        <span class="text-4xl font-black text-[var(--accent-color)] mb-2">5M+</span>
-                        <span class="text-[var(--text-main)] font-bold text-sm uppercase tracking-widest">Garments Cleaned</span>
+        <!-- SECTION 1.5: Our Journey (Clean 4-column card grid) -->
+        <section class="py-20 bg-[var(--bg-secondary)] border-b border-[var(--border-color)]">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+                <div class="text-center mb-14">
+                    <span
+                        class="text-[var(--accent-color)] text-sm font-semibold uppercase tracking-[0.2em] mb-4 block">Milestones</span>
+                    <h2
+                        class="text-4xl md:text-5xl font-bold text-[var(--text-main)] uppercase tracking-tight leading-tight">
+                        Our Journey</h2>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 items-stretch">
+                    <div
+                        class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1 transition-transform duration-300 flex flex-col">
+                        <div class="h-44 shrink-0 overflow-hidden">
+                            <img src="images/pexels-cottonbro-8296890.jpg" alt="2018"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 flex flex-col flex-1">
+                            <div
+                                class="inline-block self-start bg-[var(--accent-color)] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+                                2018</div>
+                            <h3 class="text-lg font-bold text-[var(--text-main)] uppercase tracking-wide mb-2">The
+                                Beginning</h3>
+                            <p class="text-[var(--text-muted)] text-sm font-medium leading-relaxed">Started in a 500 sq
+                                ft facility with a single commercial washer.</p>
+                        </div>
                     </div>
-                    <div class="bg-[var(--bg-secondary)] p-8 rounded-3xl border border-[var(--border-color)] flex flex-col items-center">
-                        <span class="text-4xl font-black text-[var(--accent-color)] mb-2">48h</span>
-                        <span class="text-[var(--text-main)] font-bold text-sm uppercase tracking-widest">Turnaround Time</span>
+                    <div
+                        class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1 transition-transform duration-300 flex flex-col">
+                        <div class="h-44 shrink-0 overflow-hidden">
+                            <img src="images/pexels-ekaterinabelinskaya-4700400.jpg" alt="2020"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 flex flex-col flex-1">
+                            <div
+                                class="inline-block self-start bg-[var(--accent-color)] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+                                2020</div>
+                            <h3 class="text-lg font-bold text-[var(--text-main)] uppercase tracking-wide mb-2">First
+                                Expansion</h3>
+                            <p class="text-[var(--text-muted)] text-sm font-medium leading-relaxed">Moved to a larger
+                                facility and introduced eco-friendly dry cleaning machines.</p>
+                        </div>
                     </div>
-                    <div class="bg-[var(--bg-secondary)] p-8 rounded-3xl border border-[var(--border-color)] flex flex-col items-center">
-                        <span class="text-4xl font-black text-[var(--accent-color)] mb-2">12k</span>
-                        <span class="text-[var(--text-main)] font-bold text-sm uppercase tracking-widest">Happy Clients</span>
+                    <div
+                        class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1 transition-transform duration-300 flex flex-col">
+                        <div class="h-44 shrink-0 overflow-hidden">
+                            <img src="images/pexels-tima-miroshnichenko-8774420.jpg" alt="2022"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 flex flex-col flex-1">
+                            <div
+                                class="inline-block self-start bg-[var(--accent-color)] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+                                2022</div>
+                            <h3 class="text-lg font-bold text-[var(--text-main)] uppercase tracking-wide mb-2">The App
+                                Launch</h3>
+                            <p class="text-[var(--text-muted)] text-sm font-medium leading-relaxed">Launched our mobile
+                                app, revolutionizing how customers schedule pickups.</p>
+                        </div>
                     </div>
-                    <div class="bg-[var(--bg-secondary)] p-8 rounded-3xl border border-[var(--border-color)] flex flex-col items-center">
-                        <span class="text-4xl font-black text-[var(--accent-color)] mb-2">100%</span>
-                        <span class="text-[var(--text-main)] font-bold text-sm uppercase tracking-widest">Eco-Solvents</span>
+                    <div
+                        class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-3xl overflow-hidden shadow-sm hover:-translate-y-1 transition-transform duration-300 flex flex-col">
+                        <div class="h-44 shrink-0 overflow-hidden">
+                            <img src="images/pexels-tima-miroshnichenko-8774451.jpg" alt="2025"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 flex flex-col flex-1">
+                            <div
+                                class="inline-block self-start bg-[var(--accent-color)] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+                                2025</div>
+                            <h3 class="text-lg font-bold text-[var(--text-main)] uppercase tracking-wide mb-2">Going
+                                Green</h3>
+                            <p class="text-[var(--text-muted)] text-sm font-medium leading-relaxed">Eliminated all
+                                plastic, switching to 100% reusable eco-friendly garment carriers.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- SECTION 2: Mission and Vision (Centered split cards) -->
-        <section class="min-h-[75vh] py-24 bg-[var(--bg-secondary)] border-b border-[var(--border-color)] flex flex-col justify-center">
+        <section class="py-24 bg-[var(--bg-color)] border-b border-[var(--border-color)] flex flex-col justify-center">
             <div class="max-w-[1440px] mx-auto px-6 lg:px-12 w-full flex flex-col items-center text-center">
-                <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-[0.2em] mb-4 block">Purpose & Future</span>
-                <h2 class="text-4xl md:text-5xl font-black text-[var(--text-main)] uppercase tracking-tight leading-tight mb-16">
+                <span
+                    class="text-[var(--accent-color)] text-sm font-semibold uppercase tracking-[0.2em] mb-4 block">Purpose
+                    & Future</span>
+                <h2
+                    class="text-4xl md:text-5xl font-bold text-[var(--text-main)] uppercase tracking-tight leading-tight mb-16">
                     Our Mission & Vision
                 </h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-6xl">
-                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[40px] overflow-hidden shadow-xl hover:-translate-y-2 transition-transform duration-500 group flex flex-col">
-                        <div class="h-64 w-full relative overflow-hidden">
-                            <img src="images/pexels-matreding-10344208.jpg" alt="Mission" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80">
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[40px] overflow-hidden shadow-xl hover:-translate-y-2 transition-transform duration-500 group flex flex-col"
+                        style="-webkit-mask-image: -webkit-radial-gradient(white, black);">
+                        <div class="h-64 w-full relative overflow-hidden" style="transform: translateZ(0);">
+                            <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Mission" loading="lazy"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80"
+                                style="backface-visibility: hidden; transform: translateZ(0); scale: 1.01;">
                             <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] to-transparent"></div>
-                            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-[var(--accent-color)] rounded-2xl flex items-center justify-center shadow-lg">
+                            <div
+                                class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-[var(--accent-color)] rounded-2xl flex items-center justify-center shadow-lg">
                                 <i class="fas fa-bullseye text-2xl text-white"></i>
                             </div>
                         </div>
                         <div class="p-10 pt-4 flex-1 flex flex-col items-center text-center">
-                            <h3 class="text-3xl font-black text-[var(--text-main)] uppercase tracking-wide mb-6">Our Mission</h3>
+                            <h3 class="text-3xl font-bold text-[var(--text-main)] uppercase tracking-wide mb-6">Our
+                                Mission</h3>
                             <p class="text-[var(--text-muted)] text-lg leading-relaxed">
-                                To provide unparalleled garment care using sustainable, technology-driven solutions that give our customers back their most valuable resource: time. We strive to handle every item with precision, ensuring it looks and feels brand new, pickup after pickup.
+                                To provide unparalleled garment care using sustainable, technology-driven solutions that
+                                give our customers back their most valuable resource: time. We strive to handle every
+                                item with precision, ensuring it looks and feels brand new, pickup after pickup.
                             </p>
                         </div>
                     </div>
 
-                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[40px] overflow-hidden shadow-xl hover:-translate-y-2 transition-transform duration-500 group flex flex-col">
-                        <div class="h-64 w-full relative overflow-hidden">
-                            <img src="images/pexels-enginakyurt-27376258.jpg" alt="Vision" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80">
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[40px] overflow-hidden shadow-xl hover:-translate-y-2 transition-transform duration-500 group flex flex-col"
+                        style="-webkit-mask-image: -webkit-radial-gradient(white, black);">
+                        <div class="h-64 w-full relative overflow-hidden" style="transform: translateZ(0);">
+                            <img src="https://images.unsplash.com/photo-1521656693074-0ef32e80a5d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Vision" loading="lazy"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80"
+                                style="backface-visibility: hidden; transform: translateZ(0); scale: 1.01;">
                             <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] to-transparent"></div>
-                            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-[var(--accent-color)] rounded-2xl flex items-center justify-center shadow-lg">
+                            <div
+                                class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-[var(--accent-color)] rounded-2xl flex items-center justify-center shadow-lg">
                                 <i class="fas fa-eye text-2xl text-white"></i>
                             </div>
                         </div>
                         <div class="p-10 pt-4 flex-1 flex flex-col items-center text-center">
-                            <h3 class="text-3xl font-black text-[var(--text-main)] uppercase tracking-wide mb-6">Our Vision</h3>
+                            <h3 class="text-3xl font-bold text-[var(--text-main)] uppercase tracking-wide mb-6">Our
+                                Vision</h3>
                             <p class="text-[var(--text-muted)] text-lg leading-relaxed">
-                                To become the standard for modern laundry services globally by eliminating the environmental footprint of garment care. We envision a future where every closet is maintained by clean, zero-waste practices that protect both fabrics and the planet.
+                                To become the standard for modern laundry services globally by eliminating the
+                                environmental footprint of garment care. We envision a future where every closet is
+                                maintained by clean, zero-waste practices that protect both fabrics and the planet.
                             </p>
                         </div>
                     </div>
@@ -409,41 +840,57 @@
         </section>
 
         <!-- SECTION 3: Core Values (Centered Icon Grid) -->
-        <section class="min-h-[75vh] py-24 bg-[var(--bg-color)] border-b border-[var(--border-color)] flex flex-col justify-center">
+        <section
+            class="py-24 bg-[var(--bg-secondary)] border-b border-[var(--border-color)] flex flex-col justify-center">
             <div class="max-w-[1440px] mx-auto px-6 lg:px-12 w-full flex flex-col items-center text-center">
-                <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-[0.2em] mb-4 block">What Drives Us</span>
-                <h2 class="text-4xl md:text-5xl font-black text-[var(--text-main)] uppercase tracking-tight leading-tight mb-16">
+                <span
+                    class="text-[var(--accent-color)] text-sm font-semibold uppercase tracking-[0.2em] mb-4 block">What
+                    Drives Us</span>
+                <h2
+                    class="text-4xl md:text-5xl font-bold text-[var(--text-main)] uppercase tracking-tight leading-tight mb-16">
                     Our Core Values
                 </h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
-                    <div class="bg-[var(--bg-secondary)] border border-[var(--border-color)] p-12 rounded-[32px] flex flex-col items-center text-center hover:bg-[var(--bg-card)] hover:shadow-2xl transition-all duration-500 group">
-                        <div class="w-20 h-20 bg-[var(--bg-card)] rounded-full flex items-center justify-center mb-8 shadow-sm border border-[var(--border-color)] group-hover:border-[var(--accent-color)] group-hover:text-[var(--accent-color)] transition-colors text-[var(--accent-color)]">
+                    <div
+                        class="bg-[var(--bg-secondary)] border border-[var(--border-color)] p-12 rounded-[32px] flex flex-col items-center text-center hover:bg-[var(--bg-card)] hover:shadow-2xl transition-all duration-500 group">
+                        <div
+                            class="w-20 h-20 bg-[var(--bg-card)] rounded-full flex items-center justify-center mb-8 shadow-sm border border-[var(--border-color)] group-hover:border-[var(--accent-color)] group-hover:text-[var(--accent-color)] transition-colors text-[var(--accent-color)]">
                             <i class="fas fa-leaf text-3xl"></i>
                         </div>
-                        <h3 class="text-2xl font-black text-[var(--text-main)] uppercase tracking-wide mb-4">Sustainability</h3>
+                        <h3 class="text-2xl font-bold text-[var(--text-main)] uppercase tracking-wide mb-4">
+                            Sustainability</h3>
                         <p class="text-[var(--text-muted)] text-lg leading-relaxed">
-                            We use advanced closed-loop cleaning machines and biodegradable solvents to ensure zero harmful chemicals enter the water supply.
+                            We use advanced closed-loop cleaning machines and biodegradable solvents to ensure zero
+                            harmful chemicals enter the water supply.
                         </p>
                     </div>
 
-                    <div class="bg-[var(--bg-secondary)] border border-[var(--border-color)] p-12 rounded-[32px] flex flex-col items-center text-center hover:bg-[var(--bg-card)] hover:shadow-2xl transition-all duration-500 group md:-translate-y-6">
-                        <div class="w-20 h-20 bg-[var(--bg-card)] rounded-full flex items-center justify-center mb-8 shadow-sm border border-[var(--border-color)] group-hover:border-[var(--accent-color)] group-hover:text-[var(--accent-color)] transition-colors text-[var(--accent-color)]">
+                    <div
+                        class="bg-[var(--bg-secondary)] border border-[var(--border-color)] p-12 rounded-[32px] flex flex-col items-center text-center hover:bg-[var(--bg-card)] hover:shadow-2xl transition-all duration-500 group md:-translate-y-6">
+                        <div
+                            class="w-20 h-20 bg-[var(--bg-card)] rounded-full flex items-center justify-center mb-8 shadow-sm border border-[var(--border-color)] group-hover:border-[var(--accent-color)] group-hover:text-[var(--accent-color)] transition-colors text-[var(--accent-color)]">
                             <i class="fas fa-hand-holding-heart text-3xl"></i>
                         </div>
-                        <h3 class="text-2xl font-black text-[var(--text-main)] uppercase tracking-wide mb-4">Unmatched Care</h3>
+                        <h3 class="text-2xl font-bold text-[var(--text-main)] uppercase tracking-wide mb-4">Unmatched
+                            Care</h3>
                         <p class="text-[var(--text-muted)] text-lg leading-relaxed">
-                            Every garment is inspected individually. We read the tags, check for stains, and treat your clothing as if it belonged to our own family.
+                            Every garment is inspected individually. We read the tags, check for stains, and treat your
+                            clothing as if it belonged to our own family.
                         </p>
                     </div>
 
-                    <div class="bg-[var(--bg-secondary)] border border-[var(--border-color)] p-12 rounded-[32px] flex flex-col items-center text-center hover:bg-[var(--bg-card)] hover:shadow-2xl transition-all duration-500 group">
-                        <div class="w-20 h-20 bg-[var(--bg-card)] rounded-full flex items-center justify-center mb-8 shadow-sm border border-[var(--border-color)] group-hover:border-[var(--accent-color)] group-hover:text-[var(--accent-color)] transition-colors text-[var(--accent-color)]">
+                    <div
+                        class="bg-[var(--bg-secondary)] border border-[var(--border-color)] p-12 rounded-[32px] flex flex-col items-center text-center hover:bg-[var(--bg-card)] hover:shadow-2xl transition-all duration-500 group">
+                        <div
+                            class="w-20 h-20 bg-[var(--bg-card)] rounded-full flex items-center justify-center mb-8 shadow-sm border border-[var(--border-color)] group-hover:border-[var(--accent-color)] group-hover:text-[var(--accent-color)] transition-colors text-[var(--accent-color)]">
                             <i class="fas fa-bolt text-3xl"></i>
                         </div>
-                        <h3 class="text-2xl font-black text-[var(--text-main)] uppercase tracking-wide mb-4">Reliability</h3>
+                        <h3 class="text-2xl font-bold text-[var(--text-main)] uppercase tracking-wide mb-4">Reliability
+                        </h3>
                         <p class="text-[var(--text-muted)] text-lg leading-relaxed">
-                            We pride ourselves on punctuality. When we say your clothes will be fresh and folded at your door by 5 PM, we mean it. Every single time.
+                            We pride ourselves on punctuality. When we say your clothes will be fresh and folded at your
+                            door by 5 PM, we mean it. Every single time.
                         </p>
                     </div>
                 </div>
@@ -451,91 +898,136 @@
         </section>
 
         <!-- SECTION 4: Meet The Team (Centered Profile Cards) -->
-        <section class="min-h-[75vh] py-24 bg-[var(--bg-secondary)] border-b border-[var(--border-color)] flex flex-col justify-center">
+        <section class="py-24 bg-[var(--bg-color)] border-b border-[var(--border-color)] flex flex-col justify-center">
             <div class="max-w-[1440px] mx-auto px-6 lg:px-12 w-full flex flex-col items-center text-center">
-                <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-[0.2em] mb-4 block">The Experts</span>
-                <h2 class="text-4xl md:text-5xl font-black text-[var(--text-main)] uppercase tracking-tight leading-tight mb-16">
+                <span class="text-[var(--accent-color)] text-sm font-semibold uppercase tracking-[0.2em] mb-4 block">The
+                    Experts</span>
+                <h2
+                    class="text-4xl md:text-5xl font-bold text-[var(--text-main)] uppercase tracking-tight leading-tight mb-16">
                     Meet Our Leadership
                 </h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 w-full max-w-5xl">
                     <div class="flex flex-col items-center group">
-                        <div class="w-full aspect-square rounded-[40px] overflow-hidden shadow-lg border-4 border-[var(--border-color)] mb-6 relative group-hover:border-[var(--accent-color)] transition-colors duration-500">
-                            <img src="images/pexels-ron-lach-10565610.jpg" alt="Team Member 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 gap-4">
-                                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 hover:bg-[var(--accent-color)] hover:text-white transition-colors"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 hover:bg-[var(--accent-color)] hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                        <div
+                            class="w-full aspect-square rounded-[40px] overflow-hidden shadow-lg border-4 border-[var(--border-color)] mb-6 relative group-hover:border-[var(--accent-color)] transition-colors duration-500">
+                            <img src="images/pexels-ron-lach-10565610.jpg" alt="Team Member 1"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 gap-4">
+                                <a href="#"
+                                    class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 hover:bg-[var(--accent-color)] hover:text-white transition-colors"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a href="#"
+                                    class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 hover:bg-[var(--accent-color)] hover:text-white transition-colors"><i
+                                        class="fab fa-x-twitter"></i></a>
                             </div>
                         </div>
-                        <h3 class="text-2xl font-black text-[var(--text-main)] uppercase tracking-wider mb-1">Elias Vance</h3>
-                        <span class="text-[var(--accent-color)] font-bold text-sm uppercase tracking-widest mb-4">Founder & CEO</span>
-                        <p class="text-[var(--text-muted)] text-center leading-relaxed">A former logistics expert who decided to apply supply chain efficiency to solving the weekend laundry burden.</p>
+                        <h3 class="text-2xl font-bold text-[var(--text-main)] uppercase tracking-wider mb-1">Elias
+                            Vance</h3>
+                        <span
+                            class="text-[var(--accent-color)] font-semibold text-sm uppercase tracking-widest mb-4">Founder
+                            & CEO</span>
+                        <p class="text-[var(--text-muted)] text-center leading-relaxed">A former logistics expert who
+                            decided to apply supply chain efficiency to solving the weekend laundry burden.</p>
                     </div>
 
                     <div class="flex flex-col items-center group">
-                        <div class="w-full aspect-square rounded-[40px] overflow-hidden shadow-lg border-4 border-[var(--border-color)] mb-6 relative group-hover:border-[var(--accent-color)] transition-colors duration-500">
-                            <img src="images/pexels-open-borders-36478468.jpg" alt="Team Member 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 gap-4">
-                                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 hover:bg-[var(--accent-color)] hover:text-white transition-colors"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 hover:bg-[var(--accent-color)] hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                        <div
+                            class="w-full aspect-square rounded-[40px] overflow-hidden shadow-lg border-4 border-[var(--border-color)] mb-6 relative group-hover:border-[var(--accent-color)] transition-colors duration-500">
+                            <img src="images/pexels-open-borders-36478468.jpg" alt="Team Member 2"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 gap-4">
+                                <a href="#"
+                                    class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 hover:bg-[var(--accent-color)] hover:text-white transition-colors"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a href="#"
+                                    class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 hover:bg-[var(--accent-color)] hover:text-white transition-colors"><i
+                                        class="fab fa-x-twitter"></i></a>
                             </div>
                         </div>
-                        <h3 class="text-2xl font-black text-[var(--text-main)] uppercase tracking-wider mb-1">Maya Patel</h3>
-                        <span class="text-[var(--accent-color)] font-bold text-sm uppercase tracking-widest mb-4">Head of Operations</span>
-                        <p class="text-[var(--text-muted)] text-center leading-relaxed">Oversees our entire fleet and cleaning facilities, ensuring that every garment passes strict quality checks.</p>
+                        <h3 class="text-2xl font-bold text-[var(--text-main)] uppercase tracking-wider mb-1">Maya Patel
+                        </h3>
+                        <span
+                            class="text-[var(--accent-color)] font-semibold text-sm uppercase tracking-widest mb-4">Head
+                            of Operations</span>
+                        <p class="text-[var(--text-muted)] text-center leading-relaxed">Oversees our entire fleet and
+                            cleaning facilities, ensuring that every garment passes strict quality checks.</p>
                     </div>
 
                     <div class="flex flex-col items-center group">
-                        <div class="w-full aspect-square rounded-[40px] overflow-hidden shadow-lg border-4 border-[var(--border-color)] mb-6 relative group-hover:border-[var(--accent-color)] transition-colors duration-500">
-                            <img src="images/pexels-gyldo-2149853862-31266420.jpg" alt="Team Member 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 gap-4">
-                                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 hover:bg-[var(--accent-color)] hover:text-white transition-colors"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 hover:bg-[var(--accent-color)] hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                        <div
+                            class="w-full aspect-square rounded-[40px] overflow-hidden shadow-lg border-4 border-[var(--border-color)] mb-6 relative group-hover:border-[var(--accent-color)] transition-colors duration-500">
+                            <img src="images/pexels-gyldo-2149853862-31266420.jpg" alt="Team Member 3"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 gap-4">
+                                <a href="#"
+                                    class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 hover:bg-[var(--accent-color)] hover:text-white transition-colors"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a href="#"
+                                    class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 hover:bg-[var(--accent-color)] hover:text-white transition-colors"><i
+                                        class="fab fa-x-twitter"></i></a>
                             </div>
                         </div>
-                        <h3 class="text-2xl font-black text-[var(--text-main)] uppercase tracking-wider mb-1">David Chen</h3>
-                        <span class="text-[var(--accent-color)] font-bold text-sm uppercase tracking-widest mb-4">Master Cleaner</span>
-                        <p class="text-[var(--text-muted)] text-center leading-relaxed">With 20 years in textile care, David specializes in stain removal chemistry and delicate fabric restoration.</p>
+                        <h3 class="text-2xl font-bold text-[var(--text-main)] uppercase tracking-wider mb-1">David Chen
+                        </h3>
+                        <span
+                            class="text-[var(--accent-color)] font-semibold text-sm uppercase tracking-widest mb-4">Master
+                            Cleaner</span>
+                        <p class="text-[var(--text-muted)] text-center leading-relaxed">With 20 years in textile care,
+                            David specializes in stain removal chemistry and delicate fabric restoration.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- SECTION 5: Eco-Commitment (Centered Image Background Overlay) -->
-        <section class="w-full relative flex items-center justify-center overflow-hidden min-h-[75vh] py-24 border-b border-[var(--border-color)]">
+        <section
+            class="w-full relative flex items-center justify-center overflow-hidden min-h-[75vh] py-24 border-b border-[var(--border-color)]">
             <div class="absolute inset-0 z-0">
-                <img src="images/pexels-tima-miroshnichenko-8774451.jpg" alt="Eco Friendly Cleaning" class="w-full h-full object-cover opacity-60">
+                <img src="images/pexels-tima-miroshnichenko-8774451.jpg" alt="Eco Friendly Cleaning"
+                    class="w-full h-full object-cover opacity-60">
                 <div class="absolute inset-0 bg-[#0F172A]/90 backdrop-blur-sm"></div>
             </div>
 
             <div class="flex flex-col items-center text-center px-6 max-w-4xl mx-auto z-10">
-                <div class="w-20 h-20 bg-[var(--accent-color)] rounded-full flex items-center justify-center mb-8 shadow-2xl">
+                <div
+                    class="w-20 h-20 bg-[var(--accent-color)] rounded-full flex items-center justify-center mb-8 shadow-2xl">
                     <i class="fas fa-recycle text-4xl text-white"></i>
                 </div>
-                <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-[0.2em] mb-4 block">
+                <span class="text-[var(--accent-color)] text-sm font-semibold uppercase tracking-[0.2em] mb-4 block">
                     Our Responsibility
                 </span>
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight mb-8 leading-tight text-white">
+                <h2
+                    class="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight mb-8 leading-tight text-white">
                     Protecting Clothes, <br> Protecting Earth.
                 </h2>
                 <p class="text-slate-300 text-xl mb-12 max-w-2xl leading-relaxed mx-auto">
-                    The traditional dry cleaning industry relies heavily on PERC, a toxic chemical harmful to both human health and the environment. We've entirely eliminated it from our process. By utilizing biodegradable solvents, energy-efficient washers, and 100% reusable delivery bags, we are committed to making garment care a zero-waste industry.
+                    The traditional dry cleaning industry relies heavily on PERC, a toxic chemical harmful to both human
+                    health and the environment. We've entirely eliminated it from our process. By utilizing
+                    biodegradable solvents, energy-efficient washers, and 100% reusable delivery bags, we are committed
+                    to making garment care a zero-waste industry.
                 </p>
 
                 <div class="flex flex-col sm:flex-row justify-center gap-6 w-full mt-4">
-                    <div class="bg-white/10 border border-white/20 p-6 rounded-2xl flex flex-col items-center backdrop-blur-md">
+                    <div
+                        class="bg-white/10 border border-white/20 p-6 rounded-2xl flex flex-col items-center backdrop-blur-md">
                         <i class="fas fa-tint text-3xl text-[var(--accent-color)] mb-3"></i>
-                        <h4 class="text-white font-bold uppercase tracking-wider text-sm mb-1">Water Savings</h4>
+                        <h4 class="text-white font-semibold uppercase tracking-wider text-sm mb-1">Water Savings</h4>
                         <p class="text-slate-400 text-sm">Our tech uses 40% less water.</p>
                     </div>
-                    <div class="bg-white/10 border border-white/20 p-6 rounded-2xl flex flex-col items-center backdrop-blur-md">
+                    <div
+                        class="bg-white/10 border border-white/20 p-6 rounded-2xl flex flex-col items-center backdrop-blur-md">
                         <i class="fas fa-shopping-bag text-3xl text-[var(--accent-color)] mb-3"></i>
-                        <h4 class="text-white font-bold uppercase tracking-wider text-sm mb-1">No Plastic Film</h4>
+                        <h4 class="text-white font-semibold uppercase tracking-wider text-sm mb-1">No Plastic Film</h4>
                         <p class="text-slate-400 text-sm">We provide reusable garment bags.</p>
                     </div>
-                    <div class="bg-white/10 border border-white/20 p-6 rounded-2xl flex flex-col items-center backdrop-blur-md">
+                    <div
+                        class="bg-white/10 border border-white/20 p-6 rounded-2xl flex flex-col items-center backdrop-blur-md">
                         <i class="fas fa-wind text-3xl text-[var(--accent-color)] mb-3"></i>
-                        <h4 class="text-white font-bold uppercase tracking-wider text-sm mb-1">Clean Air</h4>
+                        <h4 class="text-white font-semibold uppercase tracking-wider text-sm mb-1">Clean Air</h4>
                         <p class="text-slate-400 text-sm">100% PERC-free cleaning process.</p>
                     </div>
                 </div>
@@ -549,19 +1041,23 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-10 pt-4">
                 <div class="lg:col-span-4">
                     <div class="mb-6">
-                        <a href="index.html" class="inline-flex items-center gap-3 text-2xl font-black tracking-widest uppercase" style="color: var(--text-main) !important; text-decoration: none;">
+                        <a href="index.html"
+                            class="inline-flex items-center gap-3 text-2xl font-bold tracking-widest uppercase"
+                            style="color: var(--text-main) !important; text-decoration: none;">
                             <i class="fas fa-tshirt" style="color: var(--accent-color); font-size: 1.4rem;"></i>
                             FreshFold
                         </a>
                     </div>
-                    <p class="opacity-80 leading-relaxed text-sm font-medium mb-8 max-w-sm" style="color: var(--text-muted);">
-                        Dedicated to providing immaculate care for your garments. Our professional dry cleaning and wash & fold services guarantee fresh, perfectly pressed clothes every time.
+                    <p class="opacity-80 leading-relaxed text-sm font-medium mb-8 max-w-sm"
+                        style="color: var(--text-muted);">
+                        Dedicated to providing immaculate care for your garments. Our professional dry cleaning and wash
+                        & fold services guarantee fresh, perfectly pressed clothes every time.
                     </p>
                     <div class="flex space-x-4">
                         <a href="#" class="social-link-circle"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="social-link-circle"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link-circle"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link-circle"><i class="fab fa-yelp"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="lg:col-span-8">
@@ -589,15 +1085,22 @@
                         <div class="sm:col-span-2 md:col-span-1">
                             <h4>Main Office</h4>
                             <ul class="space-y-4 text-[var(--text-muted)] text-sm font-medium">
-                                <li class="flex items-start gap-4"><i class="fas fa-map-marker-alt mt-1 shrink-0" style="color: var(--accent-color);"></i><span>456 Clean Street<br>Fabric District, NY 10001</span></li>
-                                <li class="flex items-center gap-4"><i class="fas fa-phone shrink-0" style="color: var(--accent-color);"></i><a href="tel:+15550198" class="break-all hover:text-[var(--accent-color)]">+1 (555) 800-WASH</a></li>
-                                <li class="flex items-center gap-4"><i class="fas fa-envelope shrink-0" style="color: var(--accent-color);"></i><a href="contact.html" class="break-all hover:text-[var(--accent-color)]">hello@freshfold.com</a></li>
+                                <li class="flex items-start gap-4"><i class="fas fa-map-marker-alt mt-1 shrink-0"
+                                        style="color: var(--accent-color);"></i><span>456 Clean Street<br>Fabric
+                                        District, NY 10001</span></li>
+                                <li class="flex items-center gap-4"><i class="fas fa-phone shrink-0"
+                                        style="color: var(--accent-color);"></i><a href="tel:+15550198"
+                                        class="break-all hover:text-[var(--accent-color)]">+1 (555) 800-WASH</a></li>
+                                <li class="flex items-center gap-4"><i class="fas fa-envelope shrink-0"
+                                        style="color: var(--accent-color);"></i><a href="contact.html"
+                                        class="break-all hover:text-[var(--accent-color)]">hello@freshfold.com</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom flex flex-col md:flex-row justify-between items-center text-xs gap-6 font-semibold uppercase tracking-widest">
+            <div
+                class="footer-bottom flex flex-col md:flex-row justify-between items-center text-xs gap-6 font-semibold uppercase tracking-widest">
                 <p style="color: var(--text-muted);">&copy; 2026 FreshFold Laundry Services. All rights reserved.</p>
                 <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
                     <a href="#">Terms of Service</a>
@@ -683,4 +1186,5 @@
         if (rtlMobile) rtlMobile.onclick = toggleRTL;
     </script>
 </body>
+
 </html>
